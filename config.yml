@@ -44,7 +44,7 @@ params:
   module.mounts:
     source: "layouts"
     target: "layouts"
-    
+
   assets:
     # disableHLJS: true # to disable highlight.js
     # disableFingerprinting: true
@@ -77,7 +77,7 @@ params:
   # home-info mode
   homeInfoParams:
     Title: "Welcome to My Blog"
-    Content: "In this blog, I will document my personal learning journey. I will try to summarize and distill key ideas I learned. The approach will be not to bog down the reader with needless facts, but to present insights and my own personal digests."
+    Content: "In this blog, I will document my personal learning journey. I will try to summarize and distill key ideas I learned. "
     
   analytics:
     google:
