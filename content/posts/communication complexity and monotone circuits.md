@@ -71,3 +71,5 @@ We are interested in a specific class of games, these are called Karchmer-Widger
 > * Alice gets $x \in \lbrace 0, 1 \rbrace^{n}$ such that $f(x) = 1$.
 > * Bob gets $y \in \lbrace 0, 1 \rbrace^{n}$ such that $f(y) = 0$. 
 > * **Goal:** Find $i$ such that $x_i > y_i$.
+
+By monotonicity of $f$ there exists such an $i \in \lbrace 1,\dots,n \rbrace$. A naïve approach would be for one of the sides to communicate his string to the other side, but this is costly as it would require $n$ bits of communication. 
