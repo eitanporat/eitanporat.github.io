@@ -88,11 +88,14 @@ Try showing this by induction
 {{< details "Proof" >}}
 Suppose we are given a circuit $C$ of depth $\mathrm{Depth}(f)$. We will design a protocol for Alice and Bob for the game $M_f$ which uses at most $\mathrm{Depth}(f)$ bits of information. We will prove this claim by induction. 
 Alice and Bob are both going to hold the exact same circuit $C$, and are going to follow the following protocol:
+
 **Induction Base:** If the circuit is of depth 1, than the circuit is $x_{i}$ for some $i$, so they need to communicate $0$ bits.
+
 **Induction Step:** suppose the gate at the output of the circuit is an OR gate, and denote the left left sub-circuit $f_0$ and the right sub-circuit $f_1$, and so $$f = f_0 \vee f_1.$$ Alice and Bob know that $f(x) = 1$ and $f(y) = 0$, thus $$f_0(y) = f_1(y) = 0$$ and $$f_0(x) = 1 \vee f_1(x) = 1.$$ The condition $f_0(y) = f_1(y) = 0$ about Bob's clue gives no new information to Alice, because she already knows that this is true. But Alice could communicate a bit $j$ such $f_j(x) = 1$. $f_j$ is monotone as it is a subcircuit of a monotone circuit and has depth $\mathrm{Depth}(f_j)\leq \mathrm{Depth}(f) - 1$. Also, note that $f_j(x)=1$ while $f_j(y)=0$ so the initial condition for the game still holds. 
 ![Protocol from circuit](https://i.imgur.com/lYGbDt1.jpeg "Protocol for Alice and Bob in the case that the top-most gate is an OR gate")
+
 Hence, by the induction hypothesis, Alice and Bob could succeed in the game $f_j$ with $\mathrm{Depth}(f_j)$ bits. In other words $$ \mathrm{CC}(M_f) \leq 1 + \mathrm{CC}(M_{f_j}) \leq 1 + \mathrm{Depth}(f) - 1 = \mathrm{Depth}(f)$$
-> **Exercise:** We are missing the case for AND in the induction, modify the argument for the OR case.
+**Exercise:** We are missing the case for AND in the induction, modify the argument for the OR case.
 {{< /details >}}
 ___
 ### Second inequality ($\mathrm{Depth}(f) \leq \mathrm{CC}(M_f)$)
