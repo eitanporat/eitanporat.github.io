@@ -46,7 +46,7 @@ We know how to prove non-uniform circuit lower bounds for some specific function
 ## Monotone Functions and Circuits
 To resolve this difficulty, we focus on an even simpler problem. That of finding lower bounds (depth lower bounds) for monotone circuits which compute monotone functions.
 
-What are monotone functions? We can define an ordering on strings by lexicographic ordering ($x_{1}\cdots x_{n} \leq y_{1}\cdots y_{n}$ iff for every $1\leq i\leq n$, $x_i \leq y_i$)
+What are monotone functions? We can define an ordering on strings by the ordering ($x_{1}\cdots x_{n} \leq y_{1}\cdots y_{n}$ iff for every $1\leq i\leq n$, $x_i \leq y_i$)
 > a function is called *monotone* if $x\leq y$, then $f(x) \leq f(y)$ (for example: $0 \leq 1$).
 
 Monotone circuits are circuits which compute monotone functions. They consist of an even more restricted set of gates than we previously saw. In our case: 
