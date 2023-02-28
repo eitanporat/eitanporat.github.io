@@ -114,7 +114,7 @@ Back our previous goal, we want to show that $\mathrm{Depth}(f) \leq \mathrm{CC}
 
 We would want to leverage some induction hypothesis somehow. The induction should be about the communication complexity of the sub-protocol $\mathrm{CC}(M_{A_j,B})=\mathrm{CC}(M_{A,B})-1$.
 
-But know it seems we are stuck. Since $f$ is fixed, it couldn't possibly be that $\mathrm{Depth}(f)\leq \mathrm{CC}(M_{A_j,B})$.
+But now it seems we are stuck. Since $f$ is fixed, it couldn't possibly be that $\mathrm{Depth}(f)\leq \mathrm{CC}(M_{A_j,B})$.
 
 How could we solve this conundrum?
 {{< details "Solution" >}}
