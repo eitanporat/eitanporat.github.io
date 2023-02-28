@@ -152,9 +152,9 @@ The proof of this theorem draws from the previous proof. Try to find a way of co
 >2. $f_1(x) = 1$ for $x\in A_1$.
 >3. $f_1(y) = 0$ for $y\in B$.
 >
->We know want to construct $h$ such that $h\equiv f|_{A\cup B}$. It is important to note that it is possible that $f_0(x)=0$ for $x \in A_1$ (and correspondingly it could be that it is possible that $f_1(x)=0$ for $x \in A_0$ ). Consider the case that $g = f_0 \wedge f_1$, and $f_0(x)=1$ and $f_0(x)=0$ for some $x\in A_0$, in this case $$g(x)=0\wedge 1 = 0\neq 1.$$ However, if $g = f_0 \vee f_1$, then indeed $g(x)=f_0(x) \vee f_1(x) = 1$ for $x\in A\cup B$. By the induction hypothesis $$\mathrm{Depth}(g)=1+\max(\mathrm{Depth}(f_0) , \mathrm{Depth}(f_1)) \leq 1 + d - 1 = d.$$ 
+>We know want to construct $g$ such that $g\equiv f|_{A\cup B}$. It is important to note that it is possible that $f_0(x)=0$ for $x \in A_1$ (and correspondingly it could be that it is possible that $f_1(x)=0$ for $x \in A_0$ ). Consider the case that $g = f_0 \wedge f_1$, and $f_0(x)=1$ and $f_0(x)=0$ for some $x\in A_0$, in this case $$g(x)=0\wedge 1 = 0\neq 1.$$ However, if $g = f_0 \vee f_1$, then indeed $g(x)=f_0(x) \vee f_1(x) = 1$ for $x\in A\cup B$. By the induction hypothesis $$\mathrm{Depth}(g)=1+\max(\mathrm{Depth}(f_0) , \mathrm{Depth}(f_1)) \leq 1 + d - 1 = d.$$ 
 >
-> The case that Bob sends the first bit to Alice is left as an exercise.
+> **Exercise**: Show that $g=f_0 \wedge f_1$ if Bob sends the first bit. 
 
 {{< /details >}}
 
