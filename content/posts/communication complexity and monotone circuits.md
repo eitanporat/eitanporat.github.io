@@ -2,7 +2,7 @@
 author: "Eitan Porat"
 title: "A Remarkable Connection Between Communication Complexity and Circuit Depth"
 date: "2023-02-26"
-description: "A Remarkable Connection Between Communication Complexity and Circuit Depth"
+description: "Why is there a connection between two seemingly disparate concepts from complexity theory? What are the key insights leading to the proof?"
 tags: ["kw", "kracher wigderson", "communication complexity", "lower bounds"]
 ShowToc: true
 ShowBreadCrumbs: false
