@@ -137,7 +137,7 @@ If $\mathrm{CC}(M_{A,B})=d$ for some function monotone function $f$ then there e
 
 In fact this theorem, gives us an algorithm for constructing a circuit for $g \equiv f|_{A\cup B}$. Of course, the inequality we set out to prove follows from an application of this theorem with $A=f^{-1}(1)$ and $B=f^{-1}(0)$.
 
-The proof of this theorem draws from the previous proof. Try to find a way of construction a circuit for $g$ using an inductive proof.
+The proof of this theorem draws from the previous proof. Try to find a way of construction a circuit for $g$ using a proof by induction.
 
 {{< details "Proof" >}}
 > **Induction Base:** If $d=0$, then the players don't need to communicate any information. Therefore, the players know that there exists some coordinate $i$ such that $x_i\neq y_i$ thus the circuit is simply the circuit which computes the function $f(z)=z_i$
