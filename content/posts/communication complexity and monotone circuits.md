@@ -95,6 +95,7 @@ Alice and Bob are both going to hold the exact same circuit $C$, and are going t
 ![Protocol from circuit](https://i.imgur.com/lYGbDt1.jpeg "Protocol for Alice and Bob in the case that the top-most gate is an OR gate")
 
 Hence, by the induction hypothesis, Alice and Bob could succeed in the game $f_j$ with $\mathrm{Depth}(f_j)$ bits. In other words $$ \mathrm{CC}(M_f) \leq 1 + \mathrm{CC}(M_{f_j}) \leq 1 + \mathrm{Depth}(f) - 1 = \mathrm{Depth}(f)$$
+
 **Exercise:** We are missing the case for AND in the induction, modify the argument for the OR case.
 {{< /details >}}
 ___
