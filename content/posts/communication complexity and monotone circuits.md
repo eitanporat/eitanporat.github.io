@@ -2,7 +2,7 @@
 author: "Eitan Porat"
 title: "A Remarkable Connection Between Communication Complexity and Circuit Depth"
 date: "2023-02-26"
-description: ""
+description: "A connection between communication complextiy and circuit depth."
 tags:
 ShowToc: true
 ShowBreadCrumbs: false
