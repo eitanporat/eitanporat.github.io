@@ -1,7 +1,7 @@
 title: In Search of Great Ideas
 paginate: 5
 theme: PaperMod
-
+baseURL: "https://in-search-of-great-ideas.netlify.app/"
 enableRobotsTXT: true
 buildDrafts: false
 buildFuture: false
@@ -93,7 +93,7 @@ params:
     hiddenInSingle: true # hide on single page
 
   editPost:
-    URL: "https://github.com/<path_to_repo>/content"
+    URL: "https://github.com/eitanporat/eitanporat.github.io/tree/main/content"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 
