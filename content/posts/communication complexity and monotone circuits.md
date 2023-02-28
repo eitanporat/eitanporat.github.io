@@ -110,9 +110,9 @@ With this newly found intuition we might want to define a more general game. Giv
 
 ### The General Karchmer-Wigderson Game 
 $M_{A,B}$ (we drop $f$ in an abuse of notation):
-> * Alice gets $x \in A$ such that $f(x) = 1$.
-> * Bob gets $y \in B$ such that $f(y) = 0$. 
-> * **Goal:** Find $i$ such that $x_i\neq y_i$.
+> * Alice gets $x \in A$ such that $f(x) = 1.$
+> * Bob gets $y \in B$ such that $f(y) = 0.$
+> * **Goal:** Find $i$ such that $x_i\neq y_i.$
 
 Back our previous goal, we want to show that $\mathrm{Depth}(f) \leq \mathrm{CC}(M_f)$, equivalently $\mathrm{Depth}(f) \leq \mathrm{CC}(M_{A,B})$ for $A=f^{-1}(1)$ and $B=f^{-1}(0)$. Furthermore, assume as before that protocol start by Alice sending the bit $j$ to Bob.
 
