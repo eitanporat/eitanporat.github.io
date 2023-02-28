@@ -138,7 +138,7 @@ The proof of this theorem draws from the previous proof. Try to find a way of co
 {{< details "Proof" >}}
 **Induction Base:** If $d=0$, then the players don't need to communicate any information. Therefore, the players know that there exists some coordinate $i$ such that $x_i\neq y_i$ thus the circuit is simply the circuit which computes the function $f(z)=z_i$
 
-**Induction Step:** In this case, we assume Alice sends the first bit to Bob. This partitions Alice's input set $A$ to $A=A_0 \uplus A_1$. By the there exists $f_0$ such that:
+**Induction Step:** In this case, we assume Alice sends the first bit to Bob. This partitions Alice's input set $A$ to $A=A_0 \uplus A_1$. By the induction hypothesis, there exists $f_0$ such that:
 1. $\mathrm{Depth}(f_0) \leq d - 1$.
 2. $f_0(x) = 1$ for $x\in A_0$.
 3. $f_0(y) = 0$ for $y\in B$. 
