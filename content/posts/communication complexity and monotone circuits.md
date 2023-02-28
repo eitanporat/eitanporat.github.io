@@ -157,7 +157,7 @@ The proof of this theorem draws from the previous proof. Try to find a way of co
 ### Some remarks
 1. Counter-intuitively we proved the second inequality by proving a more general case. When I initially saw this proof, it confused me. But I don't see another way to make the induction work.
 > Could you think of other examples where to prove a statement, we look for a more general statement?
-This technique is called "strengthening the induction hypothesis" [other examples](https://mathoverflow.net/questions/31699/strengthening-the-induction-hypothesis).
+This technique is called "strengthening the induction hypothesis" [for more examples see:](https://mathoverflow.net/questions/31699/strengthening-the-induction-hypothesis).
 2. Some results that were proved using this technique:
 -  the function that takes as input a a bipartite graph and checks whether is contains a bipartite matching requires monotone depth $\Omega(n)$.
 - the function of st-Connectivity: given a graph $G$ and two input nodes $s$ and $t$ whether $s$ and $t$  the function determines whether $s$ and $t$ are connected. This function requires monotone depth $\Omega(\log(n)^2)$.
