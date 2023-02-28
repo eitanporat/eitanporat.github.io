@@ -75,7 +75,7 @@ We are interested in a specific class of games, these are called Karchmer-Widger
 
 #### Comment: Such an index $i$ always exists because $f$ is monotone.
 ## Connecting Communication Complexity and Monotone Circuit Depth
-Given a *monotone* function $f$ we denote by $\mathrm{Depth}(f)$ the monotone circuit depth of the function and by $\mathrm{CC}(M_{f})$ the communication complexity of the KW game for $f$. The following theorem gives a profound connection between *circuits* and *communication complexity*. In fact
+Given a *monotone* function $f$ we denote by $\mathrm{Depth}(f)$ the monotone circuit depth of the function and by $\mathrm{CC}(M_{f})$ the communication complexity of the KW game for $f$. The following theorem gives a profound connection between **circuits** and **communication complexity**. In fact
 $$\mathrm{Depth}(f) = \mathrm{CC}(M_{f})$$
 In other words, to compute a lower bound for the run-time of an algorithms (in the monotone circuit model), we could try to show a lower bound for the number of bits communicated between two parties in the game $M_{f}$! This gives us a way to analyse circuits using communication complexity (🤯).
 ___
