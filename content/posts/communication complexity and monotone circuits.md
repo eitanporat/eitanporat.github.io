@@ -136,19 +136,19 @@ In fact this theorem, gives us an algorithm for constructing a circuit for $g \e
 The proof of this theorem draws from the previous proof. Try to find a way of construction a circuit for $g$ using an inductive proof.
 
 {{< details "Proof" >}}
-**Induction Base:** If $d=0$, then the players don't need to communicate any information. Therefore, the players know that there exists some coordinate $i$ such that $x_i\neq y_i$ thus the circuit is simply the circuit which computes the function $f(z)=z_i$
+> **Induction Base:** If $d=0$, then the players don't need to communicate any information. Therefore, the players know that there exists some coordinate $i$ such that $x_i\neq y_i$ thus the circuit is simply the circuit which computes the function $f(z)=z_i$
 
-**Induction Step:** In this case, we assume Alice sends the first bit to Bob. This partitions Alice's input set $A$ to $A=A_0 \uplus A_1$. By the induction hypothesis, there exists $f_0$ such that:
+> **Induction Step:** In this case, we assume Alice sends the first bit to Bob. This partitions Alice's input set $A$ to $A=A_0 \uplus A_1$. By the induction hypothesis, there exists $f_0$ such that:
 1. $\mathrm{Depth}(f_0) \leq d - 1$.
 2. $f_0(x) = 1$ for $x\in A_0$.
 3. $f_0(y) = 0$ for $y\in B$. 
 
-and also, there exists $g_1$ such that:
+>and also, there exists $g_1$ such that:
 1. $\mathrm{Depth}(f_1) \leq d - 1$.
 2. $f_1(x) = 1$ for $x\in A_1$.
 3. $f_1(y) = 0$ for $y\in B$.
 
-We know want to construct $h$ such that $h\equiv f|_{A\cup B}$. It is important to note that it is possible that $f_0(x)=0$ for $x \in A_1$ (and correspondingly it could be that it is possible that $f_1(x)=0$ for $x \in A_0$ ). Consider the case that $g = f_0 \wedge f_1$, and $f_0(x)=1$ and $f_0(x)=0$ for some $x\in A_0$, in this case $$g(x)=0\wedge 1 = 0\neq 1.$$ However, if $g = f_0 \vee f_1$, then indeed $g(x)=f_0(x) \vee f_1(x) = 1$ for $x\in A\cup B$. By the induction hypothesis $$\mathrm{Depth}(g)=1+\max(\mathrm{Depth}(f_0) , \mathrm{Depth}(f_1)) \leq 1 + d - 1 = d.$$ 
+>We know want to construct $h$ such that $h\equiv f|_{A\cup B}$. It is important to note that it is possible that $f_0(x)=0$ for $x \in A_1$ (and correspondingly it could be that it is possible that $f_1(x)=0$ for $x \in A_0$ ). Consider the case that $g = f_0 \wedge f_1$, and $f_0(x)=1$ and $f_0(x)=0$ for some $x\in A_0$, in this case $$g(x)=0\wedge 1 = 0\neq 1.$$ However, if $g = f_0 \vee f_1$, then indeed $g(x)=f_0(x) \vee f_1(x) = 1$ for $x\in A\cup B$. By the induction hypothesis $$\mathrm{Depth}(g)=1+\max(\mathrm{Depth}(f_0) , \mathrm{Depth}(f_1)) \leq 1 + d - 1 = d.$$ 
 
 > The case that Bob sends the first bit to Alice is left as an exercise.
 
