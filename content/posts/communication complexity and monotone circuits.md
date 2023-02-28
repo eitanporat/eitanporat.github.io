@@ -83,7 +83,7 @@ We will prove the equality by showing that ${CC}(M_f) \leq \mathrm{Depth}(f)$ an
 ### First inequality (${CC}(M_f) \leq \mathrm{Depth}(f)$)
 Try to prove this inequality yourself before proceeding to read the proof.
 {{< details "Hint" >}}
-Try showing this by induction
+Try proving this by induction.
 {{< /details >}}
 {{< details "Proof" >}}
 Suppose we are given a circuit $C$ of depth $\mathrm{Depth}(f)$. We will design a protocol for Alice and Bob for the game $M_f$ which uses at most $\mathrm{Depth}(f)$ bits of information. We will prove this claim by induction. 
