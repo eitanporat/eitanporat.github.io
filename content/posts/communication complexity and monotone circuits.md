@@ -81,7 +81,7 @@ In other words, to compute a lower bound for the run-time of an algorithms (in t
 ___
 We will prove the equality by showing that ${CC}(M_f) \leq \mathrm{Depth}(f)$ and $\mathrm{Depth}(f) \leq \mathrm{CC}(M_{f})$.
 ### First inequality (${CC}(M_f) \leq \mathrm{Depth}(f)$)
-> Try to prove this inequality yourself before proceeding to read the proof.
+Try to prove this inequality yourself before proceeding to read the proof.
 {{< details "Hint" >}}
 Try showing this by induction
 {{< /details >}}
