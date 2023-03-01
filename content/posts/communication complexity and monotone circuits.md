@@ -34,7 +34,7 @@ Since circuits are directed graphs we can view them as layered computations. At 
 
 The reason why circuits are easier to prove lower bounds than Turing Machines, is that we can easily model the local computation done between consecutive layers. 
 
-In contrast to the time complexity of Turing Machines: we usually quantify the running time of circuits by their number of layers (or depth). Think of the depth of the circuit as the number of consecutive computations performed on the input.
+In contrast to the time complexity of Turing Machines: we usually quantify the running time of circuits by their number of layers (or depth). Think of the depth of the circuit as the number of consecutive computations performed on the input. We usually count the depth of the circuit as the number of layers (not including the input layer).
 
 A major caveat is that the size of the circuit cannot be arbitrarily large (!), and we usually want it to be polynomial in the input's size, as we cannot build arbitrarly big circuits.
 
