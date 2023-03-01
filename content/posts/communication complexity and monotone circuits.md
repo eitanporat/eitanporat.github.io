@@ -27,7 +27,7 @@ Our circuits are modeled as directed acyclic graphs with nodes representing inpu
 These gates are enough to do any computation, and as such are called *universal gates*. 
 
 
-Since circuits are directed graphs we can view them as layered computations. At the first layer we start with the some subset of the input $x \in \lbrace0,1\rbrace^{n}$, and at each layer we apply some "local" computation to nodes from the previous layer. The final layer is usually one node which we call the output of the circuit.
+Since circuits are directed graphs we can view them as layered computations. At the first layer we start with some subset of the input $x \in \lbrace0,1\rbrace^{n}$, and at each layer we apply some "local" computation to nodes from the previous layer. The final layer is usually one node which we call the output of the circuit.
 
 > ![Example of a circuit](https://upload.wikimedia.org/wikipedia/en/thumb/d/df/Three_input_Boolean_circuit.jpg/640px-Three_input_Boolean_circuit.jpg "An example of a circuit with 3 layers.")
 
@@ -38,7 +38,7 @@ In contrast to the time complexity of Turing Machines: we usually quantify the r
 
 A major caveat is that the size of the circuit cannot be arbitrarily large (!), and we usually want it to be polynomial in the input's size, as we cannot build arbitrarly big circuits.
 
-We know how to prove non-uniform circuit lower bounds for some specific functions (such as parity), but in general we don't know how this could done.
+We know how to prove non-uniform circuit lower bounds for some specific functions (such as parity), but in general we don't know how this could be done.
 
 <!-- ##### [For more information about how depth and size of circuits relate to Turing machines]() -->
 
@@ -66,12 +66,12 @@ We will now go on to talk about something that is seemingly unrelated: communica
 
 In the setting of communication complexity, two players (Alice and Bob) want to solve some task together. Alice is given the clue $x$ and Bob is given $y$ and they need to compute some function of $x$ and $y$. We assume that both players have unlimited computational power and are interested in the amount of information (*bits*) communicated between them.
 
-### Karchmer-Widgerson Games
-We are interested in a specific class of games, these are called Karchmer-Widgerson (KW) games. The game is defined as follows for some *monotone* function $f$:
-> Karchmer-Widgerson Game $M_f$:
+### Karchmer-Wigderson Games
+We are interested in a specific class of games, these are called Karchmer-Wigderson (KW) games. The game is defined as follows for some *monotone* function $f$:
+> Karchmer-Wigderson Game $M_f$:
 > * Alice gets $x \in \lbrace 0, 1 \rbrace^{n}$ such that $f(x) = 1$.
 > * Bob gets $y \in \lbrace 0, 1 \rbrace^{n}$ such that $f(y) = 0$. 
-> * **Goal:** Find $i$ such that $x_i\neq y_i$.
+> * **Goal:** Find $i$ such that $x_i=1$ and $y_i=0$.
 
 #### Comment: Such an index $i$ always exists because $f$ is monotone.
 ## Connecting Communication Complexity and Monotone Circuit Depth
