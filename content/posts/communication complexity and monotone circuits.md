@@ -24,7 +24,7 @@ Our circuits are modeled as directed acyclic graphs with nodes representing inpu
 * NOT gates ($\lnot$)
 * OR gates ($\vee$)
 * AND gates ($\wedge$)
-These gates are enough to do any computation, and as such are called *universal gates*. 
+These gates are enough to do any computation, and as such are called *universal gates*. For our purposes, AND gates and OR gates can operate on a $\mathrm{poly}(n)$ bits.
 
 
 Since circuits are directed graphs we can view them as layered computations. At the first layer we start with some subset of the input $x \in \lbrace0,1\rbrace^{n}$, and at each layer we apply some "local" computation to nodes from the previous layer. The final layer is usually one node which we call the output of the circuit.
@@ -59,7 +59,7 @@ To fix this we augment the input to the circuit by adding *advice*, a constant s
 
 I will finish this section with some questions for the reader.
 1. Why do monotone circuits compute monotone functions?
-2. Given some montone function $f$, think of a depth-3 monotone circuit which computes $f$.
+2. Given some montone function $f$, think of a depth-2 monotone circuit which computes $f$.
 
 ## Communication Complexity
 We will now go on to talk about something that is seemingly unrelated: communication complexity. This concept has surprising connections to what we previously discussed.
