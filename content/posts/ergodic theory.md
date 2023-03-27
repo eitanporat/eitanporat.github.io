@@ -45,7 +45,7 @@ $$\lim_{N\to \infty} \frac{1}{N}\sum_{i=1}^{N} f(T^{i-1}x)=\int_{\mathcal{M}}{f 
 ### An important lemma - invariant functions are constant!
 In ergodic systems, $T$-invariant functions are constant. Let $f$ be a function such that $f=f\circ T$. Consider the set $[f>t]$ that is $\lbrace x \mid f(x) > t \rbrace$. The preimage of $[f>t]$ under $T$ is $$T^{-1}[f>t] = \lbrace x \mid f\circ T(x) > t \rbrace = \lbrace x \mid f(x) > t \rbrace = [f>t].$$
 
-By ergodicity, $\mu([f>t])=0$ or $\mu([f>t])=1$ so there must be some critical value $t$ for which $\mu([f>t])=0$ but $\mu([f>t-\varepsilon])=1$ for every $\epsilon > 0$, so $f$ is constant and equal to $t$.
+By ergodicity, $\mu([f>t])=0$ or $\mu([f>t])=1$ and $\mu([f>t])$ is monotonically decreasing so there must be some critical value $t$ for which $\mu([f>t])=0$ but $\mu([f>t-\varepsilon])=1$ for every $\epsilon > 0$, so $f$ is constant and equal to $t$.
 
 Insert figure here
 
