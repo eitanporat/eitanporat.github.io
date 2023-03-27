@@ -31,7 +31,7 @@ Consider an ensemble of particles each with position $x$ and momentum $p$. The a
 To capture this notion, we define a measure $\mu$ (think of a volume function or a probability over phase space) to be a function which takes as input sets and returns values between $[0,1]$. This function has some other properties such as $\mu(\emptyset)=0$ and $\mu(X)=1$, and $\mu\left(\bigcup_{i}A_{i}\right)=\sum_{i}\mu(A_{i})$ for a countable collection of disjoint sets $\lbrace A_{1}, A_{2}, .... \rbrace$. [Click here for a more rigorous definition](https://en.wikipedia.org/wiki/Measure_%28mathematics%29). 
 
 The measure needs to be $T$-preserving in the sense that for every measurable set $E$ we have $$\mu(E)=\mu(T^{-1}E).$$ 
-a not very important aside... the reason we write $T^{-1}$ and not $T$ is for technical reasons in which $T(E)$ is not measurable.
+a not very important aside... the reason we write $T^{-1}$ and not $T$ is for technical reasons ($T$ might not be invertible in general).
 
 A system is said to be *ergodic* if there are no stationary sets except for sets which are of zero-measure or complements of sets of zero measure i.e. if $T(E)=E$ then $\mu(E)=0$ or $\mu(X\setminus E)=0$. In other words, a set can be *stationary* if it is "almost everything" or "almost nothing". 
 
