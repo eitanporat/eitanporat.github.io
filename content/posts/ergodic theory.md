@@ -47,10 +47,10 @@ For the proof of the mean ergodic theorem we only consider functions which are i
 $$\lim_{N\to \infty} \frac{1}{N}\sum_{i=1}^{N} f\circ T^{i-1} \overset{L^2}{\longrightarrow}\int_{\mathcal{X}}{f d\mu},$$ important to note that this is convergence is not pointwise but rather in $L^2$ (which is a less strict requirement).
 
 
-### An important lemma - invariant functions are constant!
+### An important lemma - invariant functions are constant (almost everywhere)!
 In ergodic systems, $T$-invariant functions are constant. Let $f$ be a function such that $f=f\circ T$. Consider the set $[f>t]$ that is $\lbrace x \mid f(x) > t \rbrace$. The preimage of $[f>t]$ under $T$ is $$T^{-1}[f>t] = \lbrace x \mid f\circ T(x) > t \rbrace = \lbrace x \mid f(x) > t \rbrace = [f>t].$$
 
-By ergodicity, $\mu([f>t])=0$ or $\mu([f>t])=1$ and $\mu([f>t])$ is monotonically decreasing so there must be some critical value $t$ for which $\mu([f>t])=0$ but $\mu([f>t-\varepsilon])=1$ for every $\epsilon > 0$, so $f$ is constant and equal to $t$.
+By ergodicity, $\mu([f>t])=0$ or $\mu([f>t])=1$ and $\mu([f>t])$ is monotonically decreasing so there must be some critical value $t$ for which $\mu([f>t])=0$ but $\mu([f>t-\varepsilon])=1$ for every $\epsilon > 0$, so $f$ is constant and equal to $t$ (up to a zero-measure set).
 
 Insert figure here
 
