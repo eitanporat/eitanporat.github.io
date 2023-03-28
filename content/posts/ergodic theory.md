@@ -84,7 +84,7 @@ This means that any function $f$ in $L^2$ can be written as a some of two functi
 As we previously saw in the lemma, this function must be constant. Which constant?
 
 ### Proving that the time-average and phase-average equal 
-**Insight 3: The convergent function $\overline{f}$ can be expressed as the inner product $\langle \overline{f}, 1\rangle.$**
+**Insight 3: The limit function $\overline{f}$ can be expressed as the inner product $\langle \overline{f}, 1\rangle.$**
 
 
 We know that $$\overline{f} = \int_{\mathcal{X}}\overline{f}d\mu$$ an alternative way to compute this integral is to compute the inner product $$\langle \overline{f}, 1\rangle$$ Combining with the fact that $$\frac{1}{N}\sum_{i=1}^{N}f\circ T^{i-1}\longrightarrow \overline{f}$$ we see that $$\overline{f} = \left \langle \frac{1}{N}\sum_{i=1}^{N}f\circ T^{i-1}, 1\right \rangle$$ and by linearity of inner product $$\overline{f} = \frac{1}{N}\sum_{i=1}^{N}\left \langle f\circ T^{i-1}, 1\right \rangle$$ using the fact that $T$ is measure preserving and therefore preserves inner products we get our desired result $$\lim_{N\to \infty} \frac{1}{N}\sum_{i=1}^{N} f(T^{i-1}x) \overset{L^2}{\longrightarrow} \int_{\mathcal{X}}{fd\mu}.$$
