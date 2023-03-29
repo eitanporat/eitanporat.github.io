@@ -197,7 +197,7 @@ follows the distribution $$P(i) = \log_{10}\left(\frac{i+1}{i}\right)$$ for $k\n
 
 Before we prove this fact. We need a lemma about the ergodicity of irrational shifts.
 
-#### Lemma: $T_\alpha(x) \to x + \alpha \mod 1$ is ergodic for $\alpha \notin \mathbb{Q}$ in the measure space $[0,1]$ with uniform measure (borel measure).
+#### Lemma: $T_\alpha(x) \to x + \alpha \mod 1$ is ergodic for $\alpha \notin \mathbb{Q}$ in the measure space $[0,1]$ with uniform measure (Borel measure).
 We will prove that there are no $T_\alpha$ invariant functions (in $L^2$) which are not constant a.e. Let $f \in L^2([0,1])$, it has a Fourier representation as series
 $$f(x) = \sum_{k\in \mathbb{Z}}{\hat{f}(k)e^{i2\pi k x}},$$ so $$f\circ T(x) = \sum_{k\in \mathbb{Z}}{\hat{f}(k)e^{i2\pi k (x + \alpha)}}$$ setting both expressions equal, since the Fourier basis is an orthogonal set all coefficients are equal so $$e^{i2\pi k x} = e^{i2\pi k(x+\alpha)} = e^{i2\pi k\alpha}e^{i2\pi k x}$$ But since $\alpha$ is irrational $e^{i2\pi k\alpha} \neq 1$ for $k\neq 0$, so $e^{i2\pi k x}=0$, which means $f$ is constant a.e.
 
@@ -210,4 +210,4 @@ We represent the binary expansion of $x$ as $x_1 \dots x_p$. Notice that $$x_1\c
 
 Consider the number $x_n$ = $k^n$, $$\log_{10}(x_1) \leq \lbrace n \log_{10}(k) \rbrace < (\log_{10}(x_1) + 1)$$ Consider the action $T(x) \mapsto x + \log_{10}k \mod 1$, this action is ergodic with respect to the uniform measure on $[0,1]$, since $\log_{10}k$ is irrational.
 
-Consider the function $f_i(x) = 1_{\log_{10}(i) \leq  x \leq \log_{10}(i + 1)}$ by Birkhoff's theorem, $$P(i) = \Pr(\text{first digit of }k^n\text{ is }i) = \lim_{n\to \infty}\frac{1}{n}\sum_{i=1}^{n}f_{i}(T^{i-1}x) \\\\\longrightarrow \int f_i d\mu = \mu [\log_{10}(i), \log_{10}(i+1)) = \log_{10}\left(\frac{i+1}{i}\right).$$ $\blacksquare$
+Consider the function $f_i(x) = 1_{\log_{10}(i) \leq  x \leq \log_{10}(i + 1)}$ by Birkhoff's theorem, $$P(i) = \Pr(\text{first digit of }k^n\text{ is }i) \\\\ = \lim_{n\to \infty}\frac{1}{n}\sum_{i=1}^{n}f_{i}(T^{i-1}x) \\\\\longrightarrow \int f_i d\mu = \mu [\log_{10}(i), \log_{10}(i+1)) = \log_{10}\left(\frac{i+1}{i}\right).$$ $\blacksquare$
