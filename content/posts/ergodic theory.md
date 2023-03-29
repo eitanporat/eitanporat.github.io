@@ -39,7 +39,7 @@ To capture this notion, we define a measure $\mu$ to be a function which takes a
 The measure needs to be $T$-preserving in the sense that for every measurable set $E$ we have $$\mu(E)=\mu(T^{-1}E).$$ 
 a not very important aside... the reason we write $T^{-1}$ and not $T$ is for technical reasons ($T$ might not be invertible in general).
 
-A system is said to be *ergodic* if there are no stationary sets except for sets which are of zero-measure or complements of sets of zero measure i.e. if $T(E)=E$ then $\mu(E)=0$ or $\mu(\mathcal{X}\setminus E)=0$. In other words, a set can be *stationary* if it is "almost everything" or "almost nothing". 
+A system is said to be *ergodic* if there are no stationary sets except for sets which are of zero-measure or complements of sets of zero measure i.e. if $T(E)=E$ then $\mu(E)=0$ or $\mu(\mathcal{X}\setminus E)=0$. In other words, a set can be *stationary* only if it is "almost everything" or "almost nothing". 
 
 We could imagine that the molecules of the gas are never confined to a specific part of the phase space, for example a smoke inside a room might eventually fills the room. It is worth to note that for most physical systems we don't know whether they are ergodic or not and we usually assume that this is true.
 
