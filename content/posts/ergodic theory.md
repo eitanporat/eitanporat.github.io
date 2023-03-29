@@ -7,12 +7,15 @@ tags: ["ergodic theory"]
 ShowToc: true
 ShowBreadCrumbs: false
 math: true
+align: center
 collapse: true
 ---
 ## Introduction
 Suppose you want to model the dynamics of a gas inside a box. We model the gas as a bunch of molecules, which can hit each other and the box they are enclosed in. We consider the situation in which there is no loss of energy (elastic collisions, friction, heat, etc.).
 
-We can write physical equations of motions to model this gas. The problem is that the number of balls is enormous, and we cannot describe the position and momentum of each particle. Nor can we solve these equations efficiently. What we can do is observe some physical quantity of the physical system (such as temperature, heat capacity, etc.). 
+![Particles in a box](https://media.tenor.com/2LDOAuu4_TAAAAAd/physics-particles.gif#center)
+
+We can write physical equations of motions to model this gas. The problem is that the number of balls is enormous, and we cannot describe the position and momentum of each particle. Nor can we solve these equations efficiently. What we can do is observe some macroscopic physical quantity of the physical system (such as *temperature*, *heat capacity*, etc.). 
 
 In mathematical terms, we have $N$ particles with positions $q_{1},q_{2},\dots,q_{N}$ (each 3-dimensional vectors) which momenta $p_{1},p_{2},\dots,p_{N}$ (also 3-dimensional vectors). We can collect all variables into a single variable $$x=(q_{1},q_{2},\dots,q_{N},p_{1},p_{2},\dots,p_{N}),$$ the state of the system. What we are interested in measuring is $f(x)$. But since molecules move very quickly $\approx 500 m/sec$, we assume that the period it takes to take a physical measurement is actually a long time for the molecules. That is, assuming that the system evolves at time $t$ as $P_t(x)$ we are actually measuring $$\frac{1}{\tau}\int_{0}^{\tau} P_{t}(x)dt,$$ where $\tau$ is the period of time it takes to take a physical measurement. But as we assumed $\tau$ is large (since each molecule moves so quickly), it is safe to assume we are measuring  $$\lim_{\tau \to \infty} \frac{1}{\tau}\int_{0}^{\tau} P_{t}(x)dt$$ Suppose the system has a fixed energy $C$. What the ergodic theorem states (Birkhoff) is that $$\lim_{\tau \to \infty} \frac{1}{\tau}\int_{0}^{\tau} f(P_{t}(x))dt=\int_{\mathcal{X}}{f(x)d\mu},$$ where $$\mathcal{X} = \lbrace x\mid E(x)=C\rbrace $$ a (compact) manifold of states with energy $C$ and $\mu$ which is the uniform measure over all states in the manifold.
 
@@ -27,7 +30,7 @@ At this point we moved from a theoretical understanding of the subject to a math
 In general, we are given some space $\mathcal{X}$ (a set), with some transformation $T$ (remember the time evolution operator $P_{t}$ we saw before). What might this transformation be in general?
 
 Consider an ensemble of particles each with position $x$ and momentum $p$. The area of the blue pixels (the phase-space distribution) is constant along the time-evolution of the system. This result is known as [Liouville's theorem](https://en.wikipedia.org/wiki/Liouville%27s_theorem_(Hamiltonian)).
-![Louville theorem](https://upload.wikimedia.org/wikipedia/commons/f/f7/Hamiltonian_flow_classical.gif)
+![Louville theorem](https://upload.wikimedia.org/wikipedia/commons/f/f7/Hamiltonian_flow_classical.gif#center)
 
 Ah-ha! This transformation must preserve the volume of the phase space. 
 
@@ -50,10 +53,9 @@ $$\lim_{N\to \infty} \frac{1}{N}\sum_{i=1}^{N} f\circ T^{i-1} \overset{L^2}{\lon
 ### An important lemma - invariant functions are constant ([almost everywhere](https://en.wikipedia.org/wiki/Almost_everywhere))!
 In ergodic systems, $T$-invariant functions (a.e.) are constant (a.e.). Let $f$ be a function such that $f=f\circ T$ (a.e.). Consider the set $[f>t]$ that is $\lbrace x \mid f(x) > t \rbrace$. The preimage of $[f>t]$ under $T$ is $$T^{-1}[f>t] = \lbrace x \mid f\circ T(x) > t \rbrace = \lbrace x \mid f(x) > t \rbrace = [f>t].$$
 
-By ergodicity, $\mu([f>t])=0$ or $\mu([f>t])=1$ and $\mu([f>t])$ is monotonically decreasing so there must be some critical value $t$ for which $\mu([f>t])=0$ but $\mu([f>t-\varepsilon])=1$ for every $\epsilon > 0$, so $f$ is constant and equal to $t$ (up to a set of zero measure).
+By ergodicity, $\mu([f>t])=0$ or $\mu([f>t])=1$ and $\mu([f>t])$ is monotonically decreasing so there must be some critical value $t^\ast$ for which $\mu([f>t^\ast])=0$ but $\mu([f>t])=1$ for every $t < t^\ast$, so $f$ is constant and equal to $t^\ast$ (up to a set of zero measure).
 
-Insert figure here
-
+![Figure](https://i.imgur.com/rW7kW5r.jpeg)
 ### Some interesting cases
 A trivial case to consider is when $f=f\circ T$ that is $f$ is $T$-invariant, we know in this case that $f$ is constant. In this case it is obvious that $$\lim_{N\to \infty} \frac{1}{N}\sum_{i=1}^{N} f(T^{i-1}x)=f(x)=\int f(x)d\mu$$
 
@@ -134,15 +136,16 @@ In the second part of the proof we show that $\bar{A}=\int_{\mathcal{X}}fd\mu$
 ## Part 1
 
 ### Warmup
-The condition that $\alpha < \bar{A}$ implies that there exists a minimum $\ell(x)$ such that $A_{\ell}(x) > \alpha$ or in general for every $k$ there exists a minimum $\ell(T^k x)$ such that $A_{\ell(T^k x)}(T^k x) > \alpha$. 
+The condition that $\alpha < \bar{A}$ implies that there exists a minimum $\ell(x)$ such that $A_{\ell}(x) > \alpha$ a.e.
 
 **Insight 1: Long enough subsequences have an average $f$ value which exceeds $\alpha$**
-What does this mean? It means that starting from any $k$ there exists $\ell(T^k x)$ such that $$\frac{1}{\ell(T^k x)}\left(f(T^k x) + f(T^{k+1}x)+\dots + f(T^{k + \ell(T^k x) - 1} x)\right) > \alpha.$$ 
+What does this mean? It means that starting from any $x$ there exists $\ell(x)$ such that $$\frac{1}{\ell(x)}\left(f(x) + f(Tx)+\dots + f(T^{\ell(x) - 1} x)\right) > \alpha.$$ 
 **Insight 2: We can decompose the sequence $x, T(x), T^2(x), \dots, T^{n-1}(x)$ into subsequences which each have an average value greater that $\alpha$.**
 Let's see what this means pictorially.
 
-Insert image here.
+![Figure](https://i.imgur.com/asYepNK.png)
 
+Each subsequence has average value greater than $\alpha$.
 The sequence is precisely defined as $$\begin{aligned}k_{0} &= \ell(x) \\\\ k_{1} &= k_{0} + \ell(T^{k_0}x) \\\\ k_{2} &= k_{1} + \ell(T^{k_{1}}x) \\\\ \vdots \\\\ k_{i} &= k_{i-1} + \ell(T^{k_{i-1}}x)\end{aligned}$$
 
 If we assume that $\ell(T^k x) \leq L$ for every $k$ we can approximately cover $x, T(x), T^2(x), \dots, T^{n-1}(x)$ with some exception to the end point ($k_i$ might not necessarily equal $n-1$, we will assume that $n-L \leq k_{i} \leq n$) and so $$\begin{aligned}A_{n}(x) &= \frac{f(x) + f(T(x)) + \dots + f(T^{n-1} x)}{n} \\\\ &\geq \frac{f(x) + f(T(x)) + \dots + f(T^{k_{0} - 1}x)}{n} \\\\ &+ \frac{f(T^{k_{0}}x) + \dots + f(T^{k_{1} - 1}x)}{n} + \dots + \frac{f(T^{k_{i-1}}x) + \dots + f(T^{k_{i} - 1}x)}{n}\\\\ &=\frac{A_{k_0}(x)\cdot k_{0}}{n} + \frac{A_{k_1}(T^{k_{0}} x) \cdot k_{1}}{n} + ... + \frac{A_{k_{i}}(T^{k_{i-1}} x) \cdot k_{i}}{n}\\\\ &\geq \frac{\alpha(k_{0} + \dots + k_{i})}{n} \\\\ &\geq \alpha\frac{n-L}{n} \end{aligned} $$ Taking $n \rightarrow \infty$, $$\lim_{n\to \infty}\inf A_{n}(x) \geq \alpha.$$ So the limit exists! 
