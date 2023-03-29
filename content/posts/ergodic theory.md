@@ -25,7 +25,7 @@ Intuitively, this means that taking a time-average measurement of a physical qua
 \mathcal{X}y goal for the rest of the post is to prove this theorem and some close variants which were discovered around the same time. We will prove the discretized versions of the theorem. -->
 
 ## Formalizing even further
-At this point we moved from a theoretical understanding of the subject to a mathematical perspective, we are trying to capture the essential conditions for which the ergodic theorem is true. We are trying to develop a useful framework and will allow us to generalize even further. 
+At this point we moved from a theoretical understanding of the subject to a mathematical perspective, we are trying to capture the essential conditions for which the ergodic theorem is true. We are trying to develop a useful framework which will allow us to generalize even further. 
 
 In general, we are given some space $\mathcal{X}$ (a set), with some transformation $T$ (remember the time evolution operator $P_{t}$ we saw before). What might this transformation be in general?
 
@@ -83,7 +83,7 @@ Assume that there exists non-zero function $f$ which is orthogonal to $\lbrace\t
 This means that any function $f$ in $L^2$ can be written as a some of two functions: one which is invariant and remains constant after computing its time average and another one which converges in $L^2$ norm to $0$. Thus, the time-average of $f$ converges to an invariant function, say $\overline{f}$. 
 
 
-As we previously saw in the lemma, this function must be constant. Which constant?
+As we saw previously in the lemma, this function must be constant. Which constant?
 
 ### Proving that the time-average and phase-average equal 
 
@@ -125,7 +125,7 @@ The limsup of a sequence always exists, lets denote $$\bar{A}(x)=\lim_{n\to \inf
 ‎  
 
 ### The proof outline
-The proof consist of two parts. 
+The proof consists of two parts. 
 
 The first part of the proof is to establish why the limit $\lim_{n\to \infty}A_{n}(x)$ exists almost everywhere, we will show this by equating the limsup and liminf of $A_{n}(x)$ $$\lim_{n\to \infty}\sup A_{n}(x)=\lim_{n\to \infty}\inf A_{n}(x).$$
 
@@ -140,7 +140,7 @@ The condition that $\alpha < \bar{A}$ implies that there exists a minimum $\ell(
 
 **Insight 1: Long enough subsequences have an average $f$ value which exceeds $\alpha$**
 What does this mean? It means that starting from any $x$ there exists $\ell(x)$ such that $$\frac{1}{\ell(x)}\left(f(x) + f(Tx)+\dots + f(T^{\ell(x) - 1} x)\right) > \alpha.$$ 
-**Insight 2: We can decompose the sequence $x, T(x), T^2(x), \dots, T^{n-1}(x)$ into subsequences which each have an average value greater that $\alpha$.**
+**Insight 2: We can decompose the sequence $x, T(x), T^2(x), \dots, T^{n-1}(x)$ into subsequences which each have an average value greater than $\alpha$.**
 Let's see what this means pictorially.
 
 ![Figure](https://i.imgur.com/asYepNK.png)
@@ -148,7 +148,7 @@ Let's see what this means pictorially.
 Each subsequence has average value greater than $\alpha$.
 The sequence is precisely defined as $$\begin{aligned}k_{0} &= \ell(x) \\\\ k_{1} &= k_{0} + \ell(T^{k_0}x) \\\\ k_{2} &= k_{1} + \ell(T^{k_{1}}x) \\\\ \vdots \\\\ k_{i} &= k_{i-1} + \ell(T^{k_{i-1}}x)\end{aligned}$$
 
-If we assume that $\ell(T^k x) \leq L$ for every $k$ we can approximately cover $x, T(x), T^2(x), \dots, T^{n-1}(x)$ with some exception to the end point ($k_i$ might not necessarily equal $n-1$, we will assume that $n-L \leq k_{i} \leq n$) and so $$\begin{aligned}A_{n}(x) &= \frac{f(x) + f(T(x)) + \dots + f(T^{n-1} x)}{n} \\\\ &\geq \frac{f(x) + f(T(x)) + \dots + f(T^{k_{0} - 1}x)}{n} \\\\ &+ \frac{f(T^{k_{0}}x) + \dots + f(T^{k_{1} - 1}x)}{n} + \dots + \frac{f(T^{k_{i-1}}x) + \dots + f(T^{k_{i} - 1}x)}{n}\\\\ &=\frac{A_{k_0}(x)\cdot k_{0}}{n} + \frac{A_{k_1}(T^{k_{0}} x) \cdot k_{1}}{n} + ... + \frac{A_{k_{i}}(T^{k_{i-1}} x) \cdot k_{i}}{n}\\\\ &\geq \frac{\alpha(k_{0} + \dots + k_{i})}{n} \\\\ &\geq \alpha\frac{n-L}{n} \end{aligned} $$ Taking $n \rightarrow \infty$, $$\lim_{n\to \infty}\inf A_{n}(x) \geq \alpha.$$ So the limit exists! 
+If we assume that $\ell(T^k x) \leq L$ for every $k$ we can approximately cover $x, T(x), T^2(x), \dots, T^{n-1}(x)$ with an exception to the end point ($k_i$ might not necessarily equal $n-1$, we will assume that $n-L \leq k_{i} \leq n$) and so $$\begin{aligned}A_{n}(x) &= \frac{f(x) + f(T(x)) + \dots + f(T^{n-1} x)}{n} \\\\ &\geq \frac{f(x) + f(T(x)) + \dots + f(T^{k_{0} - 1}x)}{n} \\\\ &+ \frac{f(T^{k_{0}}x) + \dots + f(T^{k_{1} - 1}x)}{n} + \dots + \frac{f(T^{k_{i-1}}x) + \dots + f(T^{k_{i} - 1}x)}{n}\\\\ &=\frac{A_{k_0}(x)\cdot k_{0}}{n} + \frac{A_{k_1}(T^{k_{0}} x) \cdot k_{1}}{n} + ... + \frac{A_{k_{i}}(T^{k_{i-1}} x) \cdot k_{i}}{n}\\\\ &\geq \frac{\alpha(k_{0} + \dots + k_{i})}{n} \\\\ &\geq \alpha\frac{n-L}{n} \end{aligned} $$ As $n \rightarrow \infty$, $$\lim_{n\to \infty}\inf A_{n}(x) \geq \alpha.$$ So the limit exists! 
 
 ### Back to the general case
 How do we get rid of the assumption that  $\ell(T^k x) \leq L$ for every $k$? 
@@ -157,7 +157,7 @@ How do we get rid of the assumption that  $\ell(T^k x) \leq L$ for every $k$?
 
 Why can we assume that?
 
-Let $\varepsilon>0$ be a constant as small as we want. Since $\ell(x)$ is finite almost everywhere there must exist some $L$ for which $\mu\lbrace \ell(x) > L \rbrace < \varepsilon$.
+Let $\varepsilon>0$ be a very small constant. Since $\ell(x)$ is finite almost everywhere there exists some $L$ for which $\mu\lbrace \ell(x) > L \rbrace < \varepsilon$.
 
 ### Defining the bounded function $\tilde{f}$
 We can now define a new function $\tilde{f}$ which is defined in the following way $$\tilde{f}(x) = \begin{cases}f(x) & \ell(x)\leq L\\\\ \alpha & \ell(x) > L\end{cases} \geq f(x),$$ similarly, we can define $$\tilde A_n(x) = \frac{1}{n}\sum_{i=1}^{n}\tilde f(T^{i-1}x).$$ Consider the function $$g(x) =  \begin{cases}0 & \ell(x)\leq L\\\\ \alpha - f(x) & \ell(x) > L\end{cases}$$ with time average $$B_{n} = \frac{1}{n}\sum_{i=1}^{n}g(T^{i-1}x)$$ then $\tilde{f} = f(x) + g(x)$ and $\tilde A_{n}(x) = A_{n}(x) + B_{n}(x)$.
