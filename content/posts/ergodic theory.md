@@ -2,7 +2,7 @@
 author: "Eitan Porat"
 title: "The Ergodic Theorem"
 date: "2023-03-18"
-description: "What is Ergodic Theory? In this post, I present some insightful proofs for the ergodic theorems and describe some applications of ergodic theory."
+description: "What is Ergodic Theory? In this post, I present some wonderful and intuitive proofs for the ergodic theorems and describe some applications of ergodic theory."
 tags: ["ergodic theory"]
 ShowToc: true
 ShowBreadCrumbs: false
