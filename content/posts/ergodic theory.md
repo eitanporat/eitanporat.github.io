@@ -55,13 +55,13 @@ In ergodic systems, $T$-invariant functions (a.e.) are constant (a.e.). Let $f$ 
 
 By ergodicity, $\mu([f>t])=0$ or $\mu([f>t])=1$ and $\mu([f>t])$ is monotonically decreasing so there must be some critical value $t^\ast$ for which $\mu([f>t^\ast])=0$ but $\mu([f>t])=1$ for every $t < t^\ast$, so $f$ is constant and equal to $t^\ast$ (up to a set of zero measure).
 
-![Figure](https://i.imgur.com/rW7kW5r.jpeg)
+![Figure](https://i.imgur.com/RFfw5LV.png)
 ### Some interesting cases
 A trivial case to consider is when $f=f\circ T$ that is $f$ is $T$-invariant, we know in this case that $f$ is constant. In this case it is obvious that $$\lim_{N\to \infty} \frac{1}{N}\sum_{i=1}^{N} f(T^{i-1}x)=f(x)=\int f(x)d\mu$$
 
 **Insight 1: the time-average of a $T$-invariant function $f$ converges to the function $f$**.
 
-Another interesting example to consider is when $f=1_{A}$ the indicator function for some set $A$ formally defined as $$1_{A}=\begin{cases}1 & x\in A 
+Another interesting example to consider is when $f=1_{A}$ the indicator function for some set $A$, formally defined as $$1_{A}=\begin{cases}1 & x\in A 
 \\\\ 0 & x\notin A\end{cases}$$ we see that $$\lim_{N\to \infty} \frac{|\lbrace 1\leq i \leq N \mid T^{i-1}(x) \in A \rbrace|}{N}=\mu(A)$$ i.e. we observe the fraction of times $x$ is enters the set $A$ over time and we see that it converges to the measure of the set. This implies that for every set $A$ of non-zero measure and some configuration $x$ there exists some time $n$ for which $T^{n}(x)\in A$ ([Poincaré recurrence theorem](https://en.wikipedia.org/wiki/Poincar%C3%A9_recurrence_theorem)).
 
 ### Key intuition
