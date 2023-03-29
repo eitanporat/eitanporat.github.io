@@ -32,7 +32,7 @@ In general, we are given some space $\mathcal{X}$ (a set), with some transformat
 Consider an ensemble of particles each with position $x$ and momentum $p$. The area of the blue pixels (the phase-space distribution) is constant along the time-evolution of the system. This result is known as [Liouville's theorem](https://en.wikipedia.org/wiki/Liouville%27s_theorem_(Hamiltonian)).
 ![Louville theorem](https://upload.wikimedia.org/wikipedia/commons/f/f7/Hamiltonian_flow_classical.gif#center)
 
-Ah-ha! This transformation must preserve the volume of the phase space. 
+Ah-ha! This transformation must preserve the volume of the phase space (the space of positions and momenta). 
 
 To capture this notion, we define a measure $\mu$ to be a function which takes as input sets and returns values between $[0,1]$. This function has some other properties such as $\mu(\emptyset)=0$ and $\mu(\mathcal{X})=1$, and $\mu\left(\bigcup_{i}A_{i}\right)=\sum_{i}\mu(A_{i})$ for a countable collection of disjoint sets $\lbrace A_{1}, A_{2}, .... \rbrace$. [Click here for a more rigorous definition](https://en.wikipedia.org/wiki/Measure_%28mathematics%29). 
 
