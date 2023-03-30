@@ -209,7 +209,7 @@ Consider the number $x_n$ = $k^n$, $$\log_{10}(x_1) \leq \lbrace n \log_{10}(k) 
 
 Consider the function $f_i(x) = 1_{\log_{10}(i) \leq  x \leq \log_{10}(i + 1)}$ by Birkhoff's theorem, $$P(i) = \Pr(\text{first digit of }k^n\text{ is }i) \\\\ = \lim_{n\to \infty}\frac{1}{n}\sum_{i=1}^{n}f_{i}(T^{i-1}x) \\\\\longrightarrow \int f_i d\mu = \mu [\log_{10}(i), \log_{10}(i+1)) = \log_{10}\left(\frac{i+1}{i}\right).$$ $\blacksquare$
 
-## Poincaré Recurrence Theorem
+### Poincaré Recurrence Theorem
 
 Consider the case when $f=1_{A}$ the indicator function for some set $A$, formally defined as $$1_{A}=\begin{cases}1 & x\in A 
 \\\\ 0 & x\notin A\end{cases}$$ we see that $$\lim_{N\to \infty} \frac{|\lbrace 1\leq i \leq N \mid T^{i-1}(x) \in A \rbrace|}{N}=\mu(A)$$ i.e. we observe the fraction of times $x$ is enters the set $A$ over time and we see that it converges to the measure of the set. This implies that for every set $A$ of non-zero measure and some configuration $x$ there exists some time $n$ for which $T^{n}(x)\in A$ ([Poincaré recurrence theorem](https://en.wikipedia.org/wiki/Poincar%C3%A9_recurrence_theorem)).
