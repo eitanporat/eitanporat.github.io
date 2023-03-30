@@ -82,7 +82,7 @@ This means that any function $f$ in $L^2$ can be written as a some of two functi
 
 As we saw previously in the lemma, this function must be constant. Which constant?
 
-### Proving that the time-average and phase-average equal 
+### Proving that the time-average and phase-average are equal 
 
 #### Explanation 1
 
