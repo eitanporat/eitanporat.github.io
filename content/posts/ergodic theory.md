@@ -64,7 +64,7 @@ A trivial case to consider is when $f=f\circ T$ that is $f$ is $T$-invariant, we
 ### Key intuition
 We could think of invariant functions as the kernel space of $\mathrm{id} - U$ where $U(f) = f\circ T$ is some operator acting of functions. It seems natural to consider the image space of $\mathrm{id} - U$, that is functions of the form $g-g\circ T$ for $g\in L^2$ we will call this subspace $\mathcal{C}$ (also called the coboundary functions). The time average of the function $g-g\circ T$ is a telescoping sum $$\frac{1}{N}\sum_{i=1}^{N}g(T^{i-1}x)-g(T^{i}x)=\frac{1}{N}(g(x)-g(T^{N}x)),$$ so $$\frac{1}{N}\left\Vert g(x)-g(T^{N}x) \right\Vert_2 \leq \frac{2}{N}\left\Vert g\right\Vert_2 \overset{N\to \infty}{\longrightarrow} 0.$$
 
-So the time average of $g-g\circ T$ converges in $L^2$ to $0$.
+So the time average of $g-g\circ T$ converges in $L^2$ to $0$. This makes sense since the measurement of observed physical quantities don't change drastically after infinitesimal time steps.
 
 **Insight 2: functions in $L^2$ can be decomposed into the sum of an invariant function and a coboundary function**
 
