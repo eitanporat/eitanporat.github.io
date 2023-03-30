@@ -69,7 +69,7 @@ So the time average of $g-g\circ T$ converges in $L^2$ to $0$.
 **Insight 2: functions in $L^2$ can be decomposed into the sum of an invariant function and a coboundary function**
 
 {{< details "Technical comment (not important...)" >}}
-It is easy to show that this also holds for functions in the closure of $\bar{\mathcal{C}}.$ We now want to show that $L^2$ can be decomposed into $\overline{\lbrace\text{invariant functions}\rbrace +\mathcal{C}}$. The reason we care about the closure of the space is that $\mathcal{C}$ is not necessarily closed.
+It is easy to show that this also holds for functions in the closure of $\bar{\mathcal{C}}.$ We now want to show that $L^2$ can be decomposed into $\text{invariant functions}\rbrace +\overline{\lbrace\mathcal{C}}$. The reason we care about the closure of the space is that $\mathcal{C}$ is not necessarily closed.
 {{< /details >}}
 
 ### Technical part of the proof
