@@ -25,7 +25,7 @@ Intuitively, this means that taking a time-average measurement of a physical qua
 \mathcal{X}y goal for the rest of the post is to prove this theorem and some close variants which were discovered around the same time. We will prove the discretized versions of the theorem. -->
 
 ## Formalizing even further
-At this point we moved from a theoretical understanding of the subject to a mathematical perspective, we are trying to capture the essential conditions for which the ergodic theorem is true. We are trying to develop a useful framework which will allow us to generalize even further. 
+At this point we moved from a theoretical understanding of the subject to a mathematical perspective, we are trying to capture the essential conditions for which the ergodic theorem is true. We are trying to develop a useful framework that will allow us to generalize even further. 
 
 In general, we are given some space $\mathcal{X}$ (a set), with some transformation $T$ (remember the time evolution operator $P_{t}$ we saw before). What might this transformation be in general?
 
@@ -34,20 +34,20 @@ Consider an ensemble of particles each with position $x$ and momentum $p$. The a
 
 Ah-ha! This transformation must preserve the volume of the phase space (the space of positions and momenta). 
 
-To capture this notion, we define a measure $\mu$ to be a function which takes as input sets and returns values between $[0,1]$. This function has some other properties such as $\mu(\emptyset)=0$ and $\mu(\mathcal{X})=1$, and $\mu\left(\bigcup_{i}A_{i}\right)=\sum_{i}\mu(A_{i})$ for a countable collection of disjoint sets $\lbrace A_{1}, A_{2}, .... \rbrace$. [Click here for a more rigorous definition](https://en.wikipedia.org/wiki/Measure_%28mathematics%29). 
+To capture this notion, we define a measure $\mu$ to be a function which takes as input sets and returns values between $[0,1]$. This function has some other properties, such as $\mu(\emptyset)=0$ and $\mu(\mathcal{X})=1$, and $\mu\left(\bigcup_{i}A_{i}\right)=\sum_{i}\mu(A_{i})$ for a countable collection of disjoint sets $\lbrace A_{1}, A_{2}, .... \rbrace$. [Click here for a more rigorous definition](https://en.wikipedia.org/wiki/Measure_%28mathematics%29). 
 
 The measure needs to be $T$-preserving in the sense that for every measurable set $E$ we have $$\mu(E)=\mu(T^{-1}E).$$ 
 a not very important aside... the reason we write $T^{-1}$ and not $T$ is for technical reasons ($T$ might not be invertible in general).
 
 A system is said to be *ergodic* if there are no stationary sets except for sets which are of zero-measure or complements of sets of zero measure i.e. if $T(E)=E$ then $\mu(E)=0$ or $\mu(\mathcal{X}\setminus E)=0$. In other words, a set can be *stationary* only if it is "almost everything" or "almost nothing". 
 
-We could imagine that the molecules of the gas are never confined to a specific part of the phase space, for example a smoke inside a room might eventually fills the room. It is worth to note that for most physical systems we don't know whether they are ergodic or not and we usually assume that this is true.
+We could imagine that the gas molecules are never confined to a specific part of the phase space, for example a smoke inside a room might eventually fills the room. It is worth noting that for most physical systems, we don't know whether they are ergodic or not and we usually assume that this is true.
 
 ## Proof of the Mean-Ergodic Theorem (Von Neumann `31)
 We will start by proving the mean-ergodic theorem which is an easier variant to prove than the one states earlier.
 
 For the proof of the mean ergodic theorem we only consider functions which are in $L^2$ this means that $$\int_{\mathcal{X}}|f(x)|^{2}d\mu < \infty.$$ These functions form a Hilbert space, which is useful because we can apply some of our intuitions from linear algebra to these sorts of spaces. Such as the notion of inner product $$\langle f,g \rangle = \int_{\mathcal{X}}f(x)g(x)d\mu.$$ We will prove a discrete version of the mean ergodic theorem that is 
-$$\lim_{N\to \infty} \frac{1}{N}\sum_{i=1}^{N} f\circ T^{i-1} \overset{L^2}{\longrightarrow}\int_{\mathcal{X}}{f d\mu},$$ important to note that this is convergence is not pointwise but rather in $L^2$ (which is a less strict requirement).
+$$\lim_{N\to \infty} \frac{1}{N}\sum_{i=1}^{N} f\circ T^{i-1} \overset{L^2}{\longrightarrow}\int_{\mathcal{X}}{f d\mu},$$ important to note that this is not pointwise convergencebut rather in $L^2$ (which is a less strict requirement).
 
 
 ### An important lemma - invariant functions are constant ([almost everywhere](https://en.wikipedia.org/wiki/Almost_everywhere))!
@@ -97,7 +97,7 @@ Another intuition is that we might think of $\bar{f}$ as a projection of $f$ on 
 One year after Von Neumann proved the mean ergodic theorem, Birkhoff discovered a similar result. It states that for a function in $L^1$ ($\int_{\mathcal{X}}|f(x)|d\mu < \infty$) $$\lim_{N\to \infty} \frac{1}{N}\sum_{i=1}^{N} f(T^{i-1}x)=\int_{\mathcal{X}} f(x)d\mu$$ almost everywhere. Notice that convergence here is pointwise.
 
 
-In Kolmogorov's interpretation of probability - random variables are essentially functions $f_{i}:\mathcal{X}\to \mathbb{R}$. The law of large numbers states that for any collection of identitically distributed variables $f_{1}, f_{2}, \dots, f_{N}$ (with the same distribution as $f$) their mean converges to $f$ $$\frac{f_{1}+f_{2}+\dots+f_{N}}{N}\longrightarrow \mathbb{E}[f].$$ We can view ergodicity as a condition for generating "random" behaviour.  Birkhoff's theorem shows us that ergodicity can give us another estimate for the expectation of $f$. 
+In Kolmogorov's interpretation of probability - random variables are essentially functions $f_{i}:\mathcal{X}\to \mathbb{R}$. The law of large numbers states that for any collection of identically distributed variables $f_{1}, f_{2}, \dots, f_{N}$ (with the same distribution as $f$) their mean converges to $f$ $$\frac{f_{1}+f_{2}+\dots+f_{N}}{N}\longrightarrow \mathbb{E}[f].$$ We can view ergodicity as a condition for generating "random" behaviour.  Birkhoff's theorem shows us that ergodicity can give us another estimate for the expectation of $f$. 
 so evaluating $$\mathbb{E}[f]=\int_{\mathcal{X}}f(x)d\mu$$ is equivalent to sampling $x\in \mathcal{X}$ arbitrarily and computing $$\frac{x+f(T(x))+\dots+f(T^{n-1}(x))}{N},$$ notice how this expression is totally deterministic whereas sampling i.i.d. variables requires us to assume we have some randomness. 
 
 In some sense, **ergodic systems give rise to "random" behaviour**. 
@@ -140,7 +140,7 @@ The condition that $\alpha < \bar{A}$ implies that there exists a minimum $\ell(
 
 **Insight 1: Long enough subsequences have an average $f$ value which exceeds $\alpha$**
 What does this mean? It means that starting from any $x$ there exists $\ell(x)$ such that $$\frac{1}{\ell(x)}\left(f(x) + f(Tx)+\dots + f(T^{\ell(x) - 1} x)\right) > \alpha.$$ 
-**Insight 2: We can decompose the sequence $x, T(x), T^2(x), \dots, T^{n-1}(x)$ into subsequences which each have an average value greater than $\alpha$.**
+**Insight 2: We can decompose the sequence $x, T(x), T^2(x), \dots, T^{n-1}(x)$ into subsequences which each has an average value greater than $\alpha$.**
 Let's see what this means pictorially.
 
 ![Figure](https://i.imgur.com/asYepNK.png)
@@ -151,7 +151,7 @@ The sequence is precisely defined as $$\begin{aligned}k_{0} &= \ell(x) \\\\ k_{1
 If we assume that $\ell(T^k x) \leq L$ for every $k$ we can approximately cover $x, T(x), T^2(x), \dots, T^{n-1}(x)$ with an exception to the end point ($k_i$ might not necessarily equal $n-1$, we will assume that $n-L \leq k_{i} \leq n$) and so $$\begin{aligned}A_{n}(x) &= \frac{f(x) + f(T(x)) + \dots + f(T^{n-1} x)}{n} \\\\ &\geq \frac{f(x) + f(T(x)) + \dots + f(T^{k_{0} - 1}x)}{n} \\\\ &+ \frac{f(T^{k_{0}}x) + \dots + f(T^{k_{1} - 1}x)}{n} + \dots + \frac{f(T^{k_{i-1}}x) + \dots + f(T^{k_{i} - 1}x)}{n}\\\\ &=\frac{A_{k_0}(x)\cdot k_{0}}{n} + \frac{A_{k_1}(T^{k_{0}} x) \cdot k_{1}}{n} + ... + \frac{A_{k_{i}}(T^{k_{i-1}} x) \cdot k_{i}}{n}\\\\ &\geq \frac{\alpha(k_{0} + \dots + k_{i})}{n} \\\\ &\geq \alpha\frac{n-L}{n} \end{aligned} $$ As $n \rightarrow \infty$, $$\lim_{n\to \infty}\inf A_{n}(x) \geq \alpha.$$ So the limit exists! 
 
 ### Back to the general case
-How do we get rid of the assumption that  $\ell(T^k x) \leq L$ for every $k$? 
+How do we eliminate the assumption that  $\ell(T^k x) \leq L$ for every $k$? 
 
 **Insight 3: We could assume that $\ell(x) \leq L$ almost everywhere.**
 
@@ -172,10 +172,10 @@ What have we done? We introduced a correction term $g(x)$ so that $\tilde{f}$ ha
 ### A useful inequality
 Having reduced to the case that $\tilde{\ell}(x) \leq L$ we can prove as before the inequality $$n \tilde A_{n}(x) \geq \frac{n-L}{n}\alpha$$ from which follows that taking the integral we establish that $$\int_{\mathcal{X}}fd\mu+\int_{\mathcal{X}}g d\mu=\int_{\mathcal{X}}\tilde{f}d\mu \geq \frac{n-L}{n}\alpha$$ since $g(x) \leq \alpha$ with support $\varepsilon$ we get a lower bound for $\int_{\mathcal{X}}f d\mu$, $$\int_{\mathcal{X}}fd\mu \geq \int_{\mathcal{X}}\tilde{f}d\mu - \varepsilon \alpha \geq \alpha(1-\varepsilon) $$ indeed this is true for any $\varepsilon$ and any $\alpha$ we see that $$\boxed{\int_{\mathcal{X}}fd\mu \geq \bar{A} = \lim_{n\to \infty}\sup \frac{1}{n}\sum_{i=1}^{n}f(T^{i-1}x)}$$
 
-This is true for any $f\in L^1$! We're very close to proving the first part of the theorem. What remains to prove is that $$\lim_{n\to \infty}\inf A_n(x) \geq \bar{A}.$$ 
+This equality holds for any $f\in L^1$! We're very close to proving the first part of the theorem. What remains to prove is that $$\lim_{n\to \infty}\inf A_n(x) \geq \bar{A}.$$ 
 
 ### Proving that the limit inferior and superior are equal
-Notice how $g \in L^1$ as such we know that $$ \int_{\mathcal{X}}gd\mu \geq \lim_{n\to \infty}\sup \frac{1}{n}\sum_{i=1}^{n}g(T^{i-1}x)$$ having shown that $\int_{\mathcal{X}}gd\mu \leq \alpha,$ $$\alpha\varepsilon \geq \lim_{n\to \infty}\sup \frac{1}{n}\sum_{i=1}^{n}g(T^{i-1}x)$$ the well known inequality $$\lim\inf A_{n} + \lim\sup B_{n} \geq \lim\inf(A_n + B_n) = \lim\inf\tilde A_n $$ provides us a hint for how to prove a lower bound for $A_{n}$. Since $\tilde \ell \leq L$, we know already that $$\lim\inf\tilde A_n \geq \lim\sup A_n = \bar{A}$$ Combining both inequalities we see that $$\lim\inf A_{n} \geq \lim\inf\tilde A_n - \lim\sup B_{n} $$ Applying the pointwise ergodic theorem on both $A_n$ and $B_n$ we get $$\lim\inf A_{n} \geq \bar{A} - \alpha\varepsilon \geq \alpha(1-\varepsilon)$$ again using the same argument as before $$\lim\inf A_{n} \geq \bar{A}$$
+Notice how $g \in L^1$ as such, we know that $$ \int_{\mathcal{X}}gd\mu \geq \lim_{n\to \infty}\sup \frac{1}{n}\sum_{i=1}^{n}g(T^{i-1}x)$$ having shown that $\int_{\mathcal{X}}gd\mu \leq \alpha,$ $$\alpha\varepsilon \geq \lim_{n\to \infty}\sup \frac{1}{n}\sum_{i=1}^{n}g(T^{i-1}x)$$ the well-known inequality $$\lim\inf A_{n} + \lim\sup B_{n} \geq \lim\inf(A_n + B_n) = \lim\inf\tilde A_n $$ provides us a hint for how to prove a lower bound for $A_{n}$. Since $\tilde \ell \leq L$, we know already that $$\lim\inf\tilde A_n \geq \lim\sup A_n = \bar{A}$$ Combining both inequalities we see that $$\lim\inf A_{n} \geq \lim\inf\tilde A_n - \lim\sup B_{n} $$ Applying the pointwise ergodic theorem on both $A_n$ and $B_n$ we get $$\lim\inf A_{n} \geq \bar{A} - \alpha\varepsilon \geq \alpha(1-\varepsilon)$$ again using the same argument as before $$\lim\inf A_{n} \geq \bar{A}$$
 
 ## Part 2
 ### The bounded case
@@ -195,7 +195,7 @@ Gelfand's problem states that the first digit of $$a_n = \left(k^{n}\right)_{n\i
 
 follows the distribution $$P(i) = \log_{10}\left(\frac{i+1}{i}\right)$$ for $k\neq 10$.
 
-Before we prove this fact. We need a lemma about the ergodicity of irrational shifts.
+Before we prove this fact, we need a lemma about the ergodicity of irrational shifts.
 
 #### Lemma: $T_\alpha(x) \to x + \alpha \mod 1$ is ergodic for $\alpha \notin \mathbb{Q}$ in the measure space $[0,1]$ with uniform measure (Borel measure).
 We will prove that there are no $T_\alpha$ invariant functions (in $L^2$) which are not constant a.e. Let $f \in L^2([0,1])$, it has a Fourier representation as series
