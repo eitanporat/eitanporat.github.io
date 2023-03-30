@@ -2,7 +2,7 @@
 author: "Eitan Porat"
 title: "The Ergodic Theorem"
 date: "2023-03-18"
-description: "What is Ergodic Theory? In this post, I present some wonderful and intuitive proofs for the ergodic theorems and describe an application of ergodic theory."
+description: "What is Ergodic Theory? In this post, I present some wonderful and intuitive proofs for the ergodic theorems and describe two applications of the ergodic theorem."
 tags: ["ergodic theory"]
 ShowToc: true
 ShowBreadCrumbs: false
@@ -56,13 +56,10 @@ In ergodic systems, $T$-invariant functions (a.e.) are constant (a.e.). Let $f$ 
 By ergodicity, $\mu([f>t])=0$ or $\mu([f>t])=1$ and $\mu([f>t])$ is monotonically decreasing so there must be some critical value $t^\ast$ for which $\mu([f>t^\ast])=0$ but $\mu([f>t])=1$ for every $t < t^\ast$, so $f$ is constant and equal to $t^\ast$ (up to a set of zero measure).
 
 ![Figure](https://i.imgur.com/RFfw5LV.png)
-### Some interesting cases
+### Invariant functions
 A trivial case to consider is when $f=f\circ T$ that is $f$ is $T$-invariant, we know in this case that $f$ is constant. In this case it is obvious that $$\lim_{N\to \infty} \frac{1}{N}\sum_{i=1}^{N} f(T^{i-1}x)=f(x)=\int f(x)d\mu$$
 
 **Insight 1: the time-average of a $T$-invariant function $f$ converges to the function $f$**.
-
-Another interesting example to consider is when $f=1_{A}$ the indicator function for some set $A$, formally defined as $$1_{A}=\begin{cases}1 & x\in A 
-\\\\ 0 & x\notin A\end{cases}$$ we see that $$\lim_{N\to \infty} \frac{|\lbrace 1\leq i \leq N \mid T^{i-1}(x) \in A \rbrace|}{N}=\mu(A)$$ i.e. we observe the fraction of times $x$ is enters the set $A$ over time and we see that it converges to the measure of the set. This implies that for every set $A$ of non-zero measure and some configuration $x$ there exists some time $n$ for which $T^{n}(x)\in A$ ([Poincaré recurrence theorem](https://en.wikipedia.org/wiki/Poincar%C3%A9_recurrence_theorem)).
 
 ### Key intuition
 We could think of invariant functions as the kernel space of $\mathrm{id} - U$ where $U(f) = f\circ T$ is some operator acting of functions. It seems natural to consider the image space of $\mathrm{id} - U$, that is functions of the form $g-g\circ T$ for $g\in L^2$ we will call this subspace $\mathcal{C}$ (also called the coboundary functions). The time average of the function $g-g\circ T$ is a telescoping sum $$\frac{1}{N}\sum_{i=1}^{N}g(T^{i-1}x)-g(T^{i}x)=\frac{1}{N}(g(x)-g(T^{N}x)),$$ so $$\frac{1}{N}\left\Vert g(x)-g(T^{N}x) \right\Vert_2 \leq \frac{2}{N}\left\Vert g\right\Vert_2 \overset{N\to \infty}{\longrightarrow} 0.$$
@@ -188,7 +185,7 @@ What remains to show is that $\bar{A} \geq \int_{\mathcal{X}}fd\mu$.
 
 Let $M\in \mathbb{R}$, consider the bounded function $f\wedge M = \min(f(x), M)$, $$A_{n}(x) \geq \frac{1}{n}\sum_{i=1}^{n}f\wedge M(T^{i-1}x)$$ taking limits of both sides $$\bar{A} \geq \lim_{n\to \infty}\frac{1}{n}\sum_{i=1}^{n}f\wedge M(T^{i-1}x)$$ reducing to the previous case $$\bar{A} \geq \int_{\mathcal{X}}f\wedge M d\mu$$ but since this is true from every $M$, $$\boxed{\bar{A} \geq \int_{\mathcal{X}}f d\mu}.$$ $\blacksquare$
 
-## An Application of Birkhoff's Theorem
+## Applications of Birkhoff's Theorem
 ### Gelfand's problem
 
 Gelfand's problem states that the first digit of $$a_n = \left(k^{n}\right)_{n\in \mathbb N}$$
@@ -211,3 +208,9 @@ We represent the binary expansion of $x$ as $x_1 \dots x_p$. Notice that $$x_1\c
 Consider the number $x_n$ = $k^n$, $$\log_{10}(x_1) \leq \lbrace n \log_{10}(k) \rbrace < (\log_{10}(x_1) + 1)$$ Consider the action $T(x) \mapsto x + \log_{10}k \mod 1$, this action is ergodic with respect to the uniform measure on $[0,1]$, since $\log_{10}k$ is irrational.
 
 Consider the function $f_i(x) = 1_{\log_{10}(i) \leq  x \leq \log_{10}(i + 1)}$ by Birkhoff's theorem, $$P(i) = \Pr(\text{first digit of }k^n\text{ is }i) \\\\ = \lim_{n\to \infty}\frac{1}{n}\sum_{i=1}^{n}f_{i}(T^{i-1}x) \\\\\longrightarrow \int f_i d\mu = \mu [\log_{10}(i), \log_{10}(i+1)) = \log_{10}\left(\frac{i+1}{i}\right).$$ $\blacksquare$
+
+## Poincaré Recurrence Theorem
+
+Consider the case when $f=1_{A}$ the indicator function for some set $A$, formally defined as $$1_{A}=\begin{cases}1 & x\in A 
+\\\\ 0 & x\notin A\end{cases}$$ we see that $$\lim_{N\to \infty} \frac{|\lbrace 1\leq i \leq N \mid T^{i-1}(x) \in A \rbrace|}{N}=\mu(A)$$ i.e. we observe the fraction of times $x$ is enters the set $A$ over time and we see that it converges to the measure of the set. This implies that for every set $A$ of non-zero measure and some configuration $x$ there exists some time $n$ for which $T^{n}(x)\in A$ ([Poincaré recurrence theorem](https://en.wikipedia.org/wiki/Poincar%C3%A9_recurrence_theorem)).
+
