@@ -46,7 +46,7 @@ We could imagine that the molecules of the gas are never confined to a specific 
 ## Proof of the Mean-Ergodic Theorem (Von Neumann `31)
 We will start by proving the mean-ergodic theorem which is an easier variant to prove than the one states earlier.
 
-For the proof of the mean ergodic theorem we only consider functions which are in $L^2$ this means that $$\int_{\mathcal{X}}|f(x)|^{2}d\mu < \infty.$$ These functions form a Hilbert space, which is useful because we can apply some of our intuitions from linear algebra to these sort of spaces. Such as the notion of inner product $$\langle f,g \rangle = \int_{\mathcal{X}}f(x)g(x)d\mu.$$ We will prove a discrete version of the mean ergodic theorem that is 
+For the proof of the mean ergodic theorem we only consider functions which are in $L^2$ this means that $$\int_{\mathcal{X}}|f(x)|^{2}d\mu < \infty.$$ These functions form a Hilbert space, which is useful because we can apply some of our intuitions from linear algebra to these sorts of spaces. Such as the notion of inner product $$\langle f,g \rangle = \int_{\mathcal{X}}f(x)g(x)d\mu.$$ We will prove a discrete version of the mean ergodic theorem that is 
 $$\lim_{N\to \infty} \frac{1}{N}\sum_{i=1}^{N} f\circ T^{i-1} \overset{L^2}{\longrightarrow}\int_{\mathcal{X}}{f d\mu},$$ important to note that this is convergence is not pointwise but rather in $L^2$ (which is a less strict requirement).
 
 
