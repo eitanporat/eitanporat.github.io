@@ -179,9 +179,7 @@ Notice how $g \in L^1$ as such, by the useful inequality, $$ \int_{\mathcal{X}}g
 we can view $A_{n}(x)$ as a bounded sequence of functions which converge pointwise to $\bar{A}$ and by the [bounded convergence theorem](https://en.wikipedia.org/wiki/Dominated_convergence_theorem), $$\int_{\mathcal{X}}fd\mu = \bar{A}$$
 
 ### The unbounded case
-The inequality $A_{n}(x) \geq \frac{n-L}{n}\alpha$ implies that $\int_{\mathcal{X}}{A_{n}(x)} \geq \frac{n-L}{n}\alpha$. From the linearity of the integral $$\frac{1}{n}\sum_{i=1}^{n}\int_{\mathcal{X}}f(T^{i-1}x)d\mu \geq \frac{n-L}{n}\alpha$$ again using the fact that $T$ preserves inner products and $L^1$ norms  $$\int_{\mathcal{X}} fd\mu = \frac{1}{n}\sum_{i=1}^{n}\int_{\mathcal{X}}f d\mu \geq \frac{n-L}{n}\alpha$$ but if this true for every $n$ and $\alpha < \bar{A}$ so $$\boxed{\int_{\mathcal{X}}f d\mu \geq \bar{A}}$$
-
-What remains to show is that $\bar{A} \geq \int_{\mathcal{X}}fd\mu$. 
+We have already shown that for any $f\in L^1$, $\bar{A} \leq \int_{\mathcal{X}}fd\mu$. What remains to show is that $\bar{A} \geq \int_{\mathcal{X}}fd\mu$. 
 
 Let $M\in \mathbb{R}$, consider the bounded function $f\wedge M = \min(f(x), M)$, $$A_{n}(x) \geq \frac{1}{n}\sum_{i=1}^{n}f\wedge M(T^{i-1}x)$$ taking limits of both sides $$\bar{A} \geq \lim_{n\to \infty}\frac{1}{n}\sum_{i=1}^{n}f\wedge M(T^{i-1}x)$$ reducing to the previous case $$\bar{A} \geq \int_{\mathcal{X}}f\wedge M d\mu$$ but since this is true from every $M$, $$\boxed{\bar{A} \geq \int_{\mathcal{X}}f d\mu}.$$ $\blacksquare$
 
