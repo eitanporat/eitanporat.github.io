@@ -106,9 +106,9 @@ In some sense, **ergodic systems give rise to "random" behaviour**.
 For every $x\in \mathcal{X}$ consider the series $$A_{n}(x) = \frac{1}{n}\sum_{i=1}^{n}{f(T^{i-1}x)}$$ our goal is to prove that almost everywhere $$\lim_{n\to \infty}A_{n}(x)\longrightarrow \int_{\mathcal{X}}f(x)d\mu.$$
 
 ### Some preliminary preparations
-Any function $f \in L^1$ may be decomposed into two functions $f = f_{+} - f_{-}$ which are each non negative. If we prove that the theorem holds for $f_{+}$ and $f_{-}$ individually from linearity we will conclude that the theorem hold. We may assume henceforth that $f$ is non-negative. 
+Any function $f \in L^1$ may be decomposed into two functions $f = f_{+} - f_{-}$ which are each non-negative. If we prove that the theorem holds for $f_{+}$ and $f_{-}$ individually from linearity we will conclude that the theorem hold. We may assume henceforth that $f$ is non-negative. 
 
-The limsup of a sequence always exists, lets denote $$\bar{A}(x)=\lim_{n\to \infty}\sup A_{n}(x)$$ at this moment we don't know that $A_{n}(x)$ is bounded, so $\bar{A}(x) \in [0, \infty]$, we may even drop the argument and write $\bar{A}$ instead of $\bar{A}(x)$ since $\bar{A}(x)$ is constant almost everywhere.
+The limsup of a sequence always exists, let's denote $$\bar{A}(x)=\lim_{n\to \infty}\sup A_{n}(x)$$ at this moment we don't know that $A_{n}(x)$ is bounded, so $\bar{A}(x) \in [0, \infty]$, we may even drop the argument and write $\bar{A}$ instead of $\bar{A}(x)$ since $\bar{A}(x)$ is constant almost everywhere.
 
 {{< details "Proof that $\bar{A}$ is constant almost everywhere." >}}
 >
@@ -126,14 +126,14 @@ The proof consists of two parts.
 
 The first part of the proof is to establish why the limit $\lim_{n\to \infty}A_{n}(x)$ exists almost everywhere, we will show this by equating the limsup and liminf of $A_{n}(x)$ $$\lim_{n\to \infty}\sup A_{n}(x)=\lim_{n\to \infty}\inf A_{n}(x).$$
 
-For any arbitrary $\alpha < \bar{A}$, we will prove that $$\boxed{\lim_{n\to \infty}\inf A_{n}(x) \geq \alpha}$$ and since this is true for every $\alpha < \bar{A}$ would imply that $$\lim_{n\to \infty} \inf A_{n}(x) \geq \lim_{n \to \infty} \sup A_{n}(x)$$ since the limit inferior is always less than or equal to the limit supremum this would imply that $$\lim_{n\to \infty}\inf A_{n}(x) = \lim_{n\to \infty}\sup A_{n}(x)$$ so the pointwise limit exists.
+For any arbitrary $\alpha < \bar{A}$, we will prove that $$\boxed{\lim_{n\to \infty}\inf A_{n}(x) \geq \alpha}$$ and this imply that $$\lim_{n\to \infty} \inf A_{n}(x) \geq \lim_{n \to \infty} \sup A_{n}(x)$$ since the limit inferior is always less than or equal to the limit supremum this would imply that $$\lim_{n\to \infty}\inf A_{n}(x) = \lim_{n\to \infty}\sup A_{n}(x)$$ so the pointwise limit exists.
 
 In the second part of the proof we show that $\bar{A}=\int_{\mathcal{X}}fd\mu$
 
 ## Part 1
 
 ### Warmup
-The condition that $\alpha < \bar{A}$ implies that there exists a minimum $\ell(x)$ such that $A_{\ell}(x) > \alpha$ a.e.
+The condition that $\alpha < \bar{A}$ implies that there for almost every $x$ there exists a minimum $\ell(x)$ such that $A_{\ell}(x) > \alpha$.
 
 **Insight 1: Long enough subsequences have an average $f$ value which exceeds $\alpha$**
 What does this mean? It means that starting from any $x$ there exists $\ell(x)$ such that $$\frac{1}{\ell(x)}\left(f(x) + f(Tx)+\dots + f(T^{\ell(x) - 1} x)\right) > \alpha.$$ 
@@ -167,12 +167,12 @@ What have we done? We introduced a correction term $g(x)$ so that $\tilde{f}$ ha
 
 
 ### A useful inequality
-Having reduced to the case that $\tilde{\ell}(x) \leq L$ we can prove as before the inequality $$n \tilde A_{n}(x) \geq \frac{n-L}{n}\alpha$$ from which follows that taking the integral we establish that $$\int_{\mathcal{X}}fd\mu+\int_{\mathcal{X}}g d\mu=\int_{\mathcal{X}}\tilde{f}d\mu \geq \frac{n-L}{n}\alpha$$ since $g(x) \leq \alpha$ with support $\varepsilon$ we get a lower bound for $\int_{\mathcal{X}}f d\mu$, $$\int_{\mathcal{X}}fd\mu \geq \int_{\mathcal{X}}\tilde{f}d\mu - \varepsilon \alpha \geq \alpha(1-\varepsilon) $$ indeed this is true for any $\varepsilon$ and any $\alpha$ we see that $$\boxed{\int_{\mathcal{X}}fd\mu \geq \bar{A} = \lim_{n\to \infty}\sup \frac{1}{n}\sum_{i=1}^{n}f(T^{i-1}x)}$$
+Having reduced to the case that $\tilde{\ell}(x) \leq L$ we can prove as before the inequality $$\tilde A_{n}(x) \geq \frac{n-L}{n}\alpha$$ taking the integral on both sides $$\int_{\mathcal{X}}\tilde A_{n}(x)d\mu = \int_{\mathcal{X}}\frac{1}{n}\sum_{i=1}^{n}\tilde f(T^{i-1}x)d\mu = \int_{\mathcal{X}}\tilde f(x)d\mu$$ since $T$ is measure preserving. $$\int_{\mathcal{X}}fd\mu+\int_{\mathcal{X}}g d\mu=\int_{\mathcal{X}}\tilde{f}d\mu \geq \frac{n-L}{n}\alpha$$ since $g(x) \leq \alpha$ with support $\varepsilon$ we get a lower bound for $\int_{\mathcal{X}}f d\mu$, $$\int_{\mathcal{X}}fd\mu \geq \int_{\mathcal{X}}\tilde{f}d\mu - \varepsilon \alpha \geq \alpha(1-\varepsilon) $$ indeed this is true for any $\varepsilon$ and any $\alpha$ we see that $$\boxed{\lim_{n\to \infty} \sup \frac{1}{n}\sum_{i=1}^{n} f(T^{i-1}x) = \bar{A} \leq \int_{\mathcal{X}}fd\mu}$$
 
 This equality holds for any $f\in L^1$! We're very close to proving the first part of the theorem. What remains to prove is that $$\lim_{n\to \infty}\inf A_n(x) \geq \bar{A}.$$ 
 
 ### Proving that the limit inferior and superior are equal
-Notice how $g \in L^1$ as such, we know that $$ \int_{\mathcal{X}}gd\mu \geq \lim_{n\to \infty}\sup \frac{1}{n}\sum_{i=1}^{n}g(T^{i-1}x)$$ having shown that $\int_{\mathcal{X}}gd\mu \leq \alpha,$ $$\alpha\varepsilon \geq \lim_{n\to \infty}\sup \frac{1}{n}\sum_{i=1}^{n}g(T^{i-1}x)$$ the well-known inequality $$\lim\inf A_{n} + \lim\sup B_{n} \geq \lim\inf(A_n + B_n) = \lim\inf\tilde A_n $$ provides us a hint for how to prove a lower bound for $A_{n}$. Since $\tilde \ell \leq L$, we know already that $$\lim\inf\tilde A_n \geq \lim\sup A_n = \bar{A}$$ Combining both inequalities we see that $$\lim\inf A_{n} \geq \lim\inf\tilde A_n - \lim\sup B_{n} $$ Applying the pointwise ergodic theorem on both $A_n$ and $B_n$ we get $$\lim\inf A_{n} \geq \bar{A} - \alpha\varepsilon \geq \alpha(1-\varepsilon)$$ again using the same argument as before $$\lim\inf A_{n} \geq \bar{A}$$
+Notice how $g \in L^1$ as such, by the useful inequality, $$ \int_{\mathcal{X}}gd\mu \geq \lim_{n\to \infty}\sup \frac{1}{n}\sum_{i=1}^{n}g(T^{i-1}x)$$ having shown that $\int_{\mathcal{X}}gd\mu \leq \alpha\varepsilon,$ $$\lim_{n\to \infty}\sup B_{n}\leq \alpha\varepsilon $$ by reducing to the warmup case, $$\lim\inf\tilde A_n \geq \lim\sup A_n = \bar{A}$$ The well-known inequality $$\lim\inf A_{n} + \lim\sup B_{n} \geq \lim\inf(A_n + B_n) = \lim\inf\tilde A_n $$ provides us a hint for how to prove a lower bound for $\lim \inf A_{n}$. Combining both inequalities we see that $$\lim\inf A_{n} \geq \lim\inf\tilde A_n - \lim\sup B_{n} \geq \bar{A} - \alpha\varepsilon \geq \alpha(1-\varepsilon) $$ using the same argument as before $$\lim\inf A_{n} \geq \bar{A}.$$ Proving that the limit $\lim_{n\to \infty} A_{n}(x) = \bar{A}$ exists almost everywhere.
 
 ## Part 2
 ### The bounded case
