@@ -190,6 +190,8 @@ Gelfand's problem states that the first digit of $$a_n = \left(k^{n}\right)_{n\i
 
 follows the distribution $$P(i) = \log_{10}\left(\frac{i+1}{i}\right)$$ for $k\neq 10^{m}$.
 
+![Benford's Distribution](https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Rozklad_benforda.svg/2560px-Rozklad_benforda.svg.png "The distribution of first digits. Each bar represents a digit, and the height of the bar is the percentage of numbers that start with that digit (Credit: Wikipedia)")
+
 Before we prove this fact, we need a lemma about the ergodicity of irrational shifts.
 
 #### Lemma: $T_\alpha(x) \to x + \alpha \mod 1$ is ergodic for $\alpha \notin \mathbb{Q}$ in the measure space $[0,1]$ with uniform measure (Borel measure).
