@@ -196,7 +196,7 @@ Before we prove this fact, we need a lemma about the ergodicity of irrational sh
 We will prove that there are no $T_\alpha$ invariant functions (in $L^2$) which are not constant a.e. Let $f \in L^2([0,1])$, it has a Fourier representation as series
 $$f(x) = \sum_{k\in \mathbb{Z}}{\hat{f}(k)e^{i2\pi k x}},$$ so $$f\circ T(x) = \sum_{k\in \mathbb{Z}}{\hat{f}(k)e^{i2\pi k (x + \alpha)}}$$ setting both expressions equal, since the Fourier basis is an orthogonal set all coefficients are equal so $$e^{i2\pi k x} = e^{i2\pi k(x+\alpha)} = e^{i2\pi k\alpha}e^{i2\pi k x}$$ But since $\alpha$ is irrational $e^{i2\pi k\alpha} \neq 1$ for $k\neq 0$, so $e^{i2\pi k x}=0$, which means $f$ is constant a.e.
 
-Suppose $E$ is a $T$-invariant set, so $T(E)=E$ equivalently $E = T^{-1}(E)$ so $1_{E} = 1_{T^{-1}(E)} = 1_{E}\circ T$ which implies that $1_{E}$ is constant a.e. so either $\mu(E)=0$ or $\mu(E)=1$ hence the system is ergodic.
+Suppose $E$ is a $T$-invariant set, so $T^{-1}(E)=E$ so $x\in E \iff T(x) \in E$. Therefore $1_{E} = 1_{E}\circ T$ which implies that $1_{E}$ is constant almost everywhere so either $\mu(E)=0$ or $\mu(E)=1$, hence the system is ergodic.
 
 #### Proof
 
