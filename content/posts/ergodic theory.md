@@ -126,7 +126,7 @@ The proof consists of two parts.
 
 The first part of the proof is to establish why the limit $\lim_{n\to \infty}A_{n}(x)$ exists almost everywhere, we will show this by equating the limsup and liminf of $A_{n}(x)$ $$\lim_{n\to \infty}\sup A_{n}(x)=\lim_{n\to \infty}\inf A_{n}(x).$$
 
-For any arbitrary $\alpha < \bar{A}$, we will prove that $$\boxed{\lim_{n\to \infty}\inf A_{n}(x) \geq \alpha}$$ and this implies that $$\lim_{n\to \infty} \inf A_{n}(x) \geq \lim_{n \to \infty} \sup A_{n}(x)$$ since the limit inferior is always less than or equal to the limit supremum this would imply that $$\lim_{n\to \infty}\inf A_{n}(x) = \lim_{n\to \infty}\sup A_{n}(x)$$ so the pointwise limit exists.
+For any arbitrary $\alpha < \bar{A}$, we will prove that $$\lim_{n\to \infty}\inf A_{n}(x) \geq \alpha$$ and this implies that $$\lim_{n\to \infty} \inf A_{n}(x) \geq \lim_{n \to \infty} \sup A_{n}(x)$$ since the limit inferior is always less than or equal to the limit supremum this would imply that $$\lim_{n\to \infty}\inf A_{n}(x) = \lim_{n\to \infty}\sup A_{n}(x)$$ so the pointwise limit exists.
 
 In the second part of the proof we show that $\bar{A}=\int_{\mathcal{X}}fd\mu$
 
