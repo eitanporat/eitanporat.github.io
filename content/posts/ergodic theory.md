@@ -188,7 +188,7 @@ Let $M\in \mathbb{R}$, consider the bounded function $f\wedge M = \min(f(x), M)$
 
 Gelfand's problem states that the first digit of $$a_n = \left(k^{n}\right)_{n\in \mathbb N}$$
 
-follows the distribution $$P(i) = \log_{10}\left(\frac{i+1}{i}\right)$$ for $k\neq 10$.
+follows the distribution $$P(i) = \log_{10}\left(\frac{i+1}{i}\right)$$ for $k\neq 10^{m}$.
 
 Before we prove this fact, we need a lemma about the ergodicity of irrational shifts.
 
@@ -198,17 +198,21 @@ $$f(x) = \sum_{k\in \mathbb{Z}}{\hat{f}(k)e^{i2\pi k x}},$$ so $$f\circ T(x) = \
 
 Suppose $E$ is a $T$-invariant set, so $T^{-1}(E)=E$ so $x\in E \iff T(x) \in E$. Therefore $1_{E} = 1_{E}\circ T$ which implies that $1_{E}$ is constant almost everywhere so either $\mu(E)=0$ or $\mu(E)=1$, hence the system is ergodic.
 
-#### Proof
+> **Advanced comment:**
+> $T_\alpha$ is actually *uniquely ergodic*, which means that there exists only one measure $\mu$ for which $T_\alpha$ is invariant. It can be shown that for uniquely ergodic transformations $$\lim_{n\to \infty}A_{n}(x)\longrightarrow \int_{\mathcal{X}}f(x)d\mu.$$ holds *everywhere*.
+>
+> We don't present a proof for this fact.
+#### Proof of Gelfand's Problem
 
 
 We represent the binary expansion of $x$ as $x_1 \dots x_p$. Notice that $$x_1\cdot 10^{p - 1} \leq x_{1}...x_{p} < (x_1 + 1) \cdot 10^{p-1}$$ taking $\log_{10}$ of both sides $$\log_{10}(x_1) + (p-1) \leq \log_{10}(x) < (\log_{10}(x_1) + 1) + (p-1)$$ and so $$\log_{10}(x_1) \leq \lbrace \log_{10}(x) \rbrace < (\log_{10}(x_1) + 1)$$ Where $\lbrace \log_{10}(x) \rbrace$ is the fractional part of $\log_{10}(x)$. So for any number $x$ that starts with the digit $i$, $$\log_{10}(i) \leq \lbrace \log_{10}(x) \rbrace < (\log_{10}(i) + 1)$$
 
-Consider the number $x$ = $k^n$, $$\log_{10}(x_1) \leq \lbrace n \log_{10}(k) \rbrace < (\log_{10}(x_1) + 1)$$ Consider the action $T(x) \mapsto x + \log_{10}k \mod 1$, this action is ergodic with respect to the uniform measure on $[0,1]$, since $\log_{10}k$ is irrational.
+Consider the number $x$ = $k^n$, $$\log_{10}(x_1) \leq \lbrace n \log_{10}(k) \rbrace < (\log_{10}(x_1) + 1)$$ Consider the action $T(x) \mapsto x + \log_{10}k \mod 1$, $\log_{10}k$ is irrational and so this action is uniquely ergodic with invariant measure which is uniform on $[0,1]$.
 
-Consider the function $f_i(x) = 1_{\log_{10}(i) \leq  x \leq \log_{10}(i + 1)}$ by Birkhoff's theorem, $$P(i) = \Pr(\text{first digit of }k^n\text{ is }i) \\\\ = \lim_{n\to \infty}\frac{1}{n}\sum_{i=1}^{n}f_{i}(T^{i-1}x) \\\\\longrightarrow \int f_i d\mu = \mu [\log_{10}(i), \log_{10}(i+1)) = \log_{10}\left(\frac{i+1}{i}\right).$$ $\blacksquare$
+Consider the function $f_i(x) = 1_{\log_{10}(i) \leq  x \leq \log_{10}(i + 1)}$ by Birkhoff's theorem (for uniquely ergodic maps), $$P(i) = \Pr(\text{first digit of }k^n\text{ is }i) \\\\ = \lim_{n\to \infty}\frac{1}{n}\sum_{j=1}^{n}f_{i}(T^{j}0) \\\\\longrightarrow \int f_i d\mu = \mu [\log_{10}(i), \log_{10}(i+1)) = \log_{10}\left(\frac{i+1}{i}\right).$$ $\blacksquare$
 
 ### Poincaré Recurrence Theorem
 
 Consider the case when $f=1_{A}$ the indicator function for some set $A$, formally defined as $$1_{A}=\begin{cases}1 & x\in A 
-\\\\ 0 & x\notin A\end{cases}$$ we see that $$\lim_{N\to \infty} \frac{|\lbrace 1\leq i \leq N \mid T^{i-1}(x) \in A \rbrace|}{N}=\mu(A)$$ i.e. we observe the fraction of times $x$ is enters the set $A$ over time and we see that it converges to the measure of the set. This implies that for every set $A$ of non-zero measure and some configuration $x$ there exists some time $n$ for which $T^{n}(x)\in A$ ([Poincaré recurrence theorem](https://en.wikipedia.org/wiki/Poincar%C3%A9_recurrence_theorem)).
+\\\\ 0 & x\notin A\end{cases}$$ we see that $$\lim_{N\to \infty} \frac{|\lbrace 1\leq i \leq N \mid T^{i-1}(x) \in A \rbrace|}{N}=\mu(A)$$ i.e. we observe the fraction of times $x$ is enters the set $A$ over time and we see that it converges to the measure of the set. This implies that for every set $A$ of non-zero measure and some configuration $x$ there exists some time $n$ for which $T^{n}(x)\in A$ ([Poincaré recurrence theorem](https://en.wikipedia.org/wiki/Poincar%C3%A9_recurrence_theorem)). The assumption about the system being ergodic can actually be weakened.
 
