@@ -203,7 +203,7 @@ Suppose $E$ is a $T$-invariant set, so $T^{-1}(E)=E$ so $x\in E \iff T(x) \in E$
 
 We represent the binary expansion of $x$ as $x_1 \dots x_p$. Notice that $$x_1\cdot 10^{p - 1} \leq x_{1}...x_{p} < (x_1 + 1) \cdot 10^{p-1}$$ taking $\log_{10}$ of both sides $$\log_{10}(x_1) + (p-1) \leq \log_{10}(x) < (\log_{10}(x_1) + 1) + (p-1)$$ and so $$\log_{10}(x_1) \leq \lbrace \log_{10}(x) \rbrace < (\log_{10}(x_1) + 1)$$ Where $\lbrace \log_{10}(x) \rbrace$ is the fractional part of $\log_{10}(x)$. So for any number $x$ that starts with the digit $i$, $$\log_{10}(i) \leq \lbrace \log_{10}(x) \rbrace < (\log_{10}(i) + 1)$$
 
-Consider the number $x_n$ = $k^n$, $$\log_{10}(x_1) \leq \lbrace n \log_{10}(k) \rbrace < (\log_{10}(x_1) + 1)$$ Consider the action $T(x) \mapsto x + \log_{10}k \mod 1$, this action is ergodic with respect to the uniform measure on $[0,1]$, since $\log_{10}k$ is irrational.
+Consider the number $x$ = $k^n$, $$\log_{10}(x_1) \leq \lbrace n \log_{10}(k) \rbrace < (\log_{10}(x_1) + 1)$$ Consider the action $T(x) \mapsto x + \log_{10}k \mod 1$, this action is ergodic with respect to the uniform measure on $[0,1]$, since $\log_{10}k$ is irrational.
 
 Consider the function $f_i(x) = 1_{\log_{10}(i) \leq  x \leq \log_{10}(i + 1)}$ by Birkhoff's theorem, $$P(i) = \Pr(\text{first digit of }k^n\text{ is }i) \\\\ = \lim_{n\to \infty}\frac{1}{n}\sum_{i=1}^{n}f_{i}(T^{i-1}x) \\\\\longrightarrow \int f_i d\mu = \mu [\log_{10}(i), \log_{10}(i+1)) = \log_{10}\left(\frac{i+1}{i}\right).$$ $\blacksquare$
 
