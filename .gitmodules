@@ -1,6 +1,6 @@
 [submodule "themes/PaperMod"]
 	path = themes/PaperMod
-	url = https://github.com/eitanporat/hugo-PaperMod/tree/master.git
+	url = https://github.com/eitanporat/hugo-PaperMod
 
 [submodule "themes/ananke"]
 	path = themes/ananke
