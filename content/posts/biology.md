@@ -31,7 +31,7 @@ There are different kinds of covalent bonds determined by how many pairs of elec
 
 The strength of a bond is measured by how much energy it takes to break the bond (measured in $kcal/mol$).
 
-Covalent bonds require around $80 kcal/mol$ to break.
+Covalent bonds require around $80 \cdot kcal/mol$ to break.
 
 The maximum number of covalent bonds each atom can engage in is:
 
@@ -60,8 +60,9 @@ These bonds are weaker than covalent bonds and require around $5 kcal/mol$ to br
 Ionic bonds are formed when electrons are completely transferred from one atom to another. It is usually formed between two oppositely charged ions (atoms with a net charge) or between two atoms of sharply different electronegativites.
 
 ## Van der Waals bonds
-Van der Waals bonds are caused by correlations in the fluctuating polarizations of nearby particles
+Van der Waals bonds are caused by correlations in the fluctuating polarizations of nearby particles. 
 
+<!-- Get a better grasp -->
 ## Hydrophobic forces
 Imagine a glass of water which contains a lot of $H_2 O$ molecules which create hydrogen bonds between each other. If we put some non-polar molecules such as a hydrocarbons (oil) the water molecules have a harder time of orienting and have less translational and rotational entropy. The second law of thermodynamics states that processes tend to the least free energy (Gibbs energy). So the water and hydrocarbons will repell each other and eventually separate.
 
