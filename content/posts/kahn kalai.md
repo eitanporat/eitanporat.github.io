@@ -2,7 +2,7 @@
 author: "Eitan Porat"
 title: "A Note on the Kahn-Kalai Conjecture"
 date: "2023-03-18"
-description: "The Park-Pham Theorem gives us a tool for calculating the thresholds of graph properties. In this blog post we attempt to give a clear explanation of the proof, focusing on intuition and concrete examples. v1"
+description: "The Park-Pham Theorem gives us a tool for calculating the thresholds of graph properties. In this blog post we attempt to give a clear explanation of the proof, focusing on intuition and concrete examples. v2"
 tags: ["random graphs"]
 ShowToc: true
 ShowBreadCrumbs: false
@@ -14,27 +14,15 @@ collapse: true
 The Erdős–Rényi model in probability theory is a model for generating random graphs. 
 
 There are two closely related variants of Erdős–Rényi models. In the $G(n,M)$ a graph is chosen uniformly at random from the collection of graphs which have $n$ nodes and $M$ edges. In the $G(n,p)$ model, a graph on $n$ vertices is constructed by randomly adding edges with probability $p$. 
-We sometimes view these graphs as subsets of $\lbrace 0,1\rbrace^{\begin{pmatrix}
-  [n] \\\
-  2
-\end{pmatrix}}$, where the edges are randomly selected from the set $$\begin{pmatrix}
-  [n] \\\
-  2
-\end{pmatrix} = \lbrace \lbrace a,b\rbrace \mid 1\leq a < b \leq n\rbrace.$$
+We sometimes view these graphs as subsets of $\lbrace 0,1\rbrace^{\begin{pmatrix}[n] \\\2
+\end{pmatrix}}$, where the edges are randomly selected from the set $$\begin{pmatrix}[n] \\\2\end{pmatrix} = \lbrace \lbrace a,b\rbrace \mid 1\leq a < b \leq n\rbrace.$$
 
-This models are closely related because by the law of large numbers $G(n,p)$ should behave similarly to $G(n,
-M)$ where $M=\begin{pmatrix}
-  n \\\
-  2
-\end{pmatrix}p$.
+This models are closely related because by the law of large numbers $G(n,p)$ should behave similarly to $G(n,M)$ where $M=\begin{pmatrix}n \\\2\end{pmatrix}p$.
 
 ## Monotone Properties
 The behaviour of these random graphs are studies often in the regime where the number of nodes tends to infinity. This behaviour is usually studies in the context of monotone properties. 
 
-A property $\mathcal{G} \subseteq \lbrace 0,1\rbrace ^{\begin{pmatrix}
-  [n] \\\
-  2
-\end{pmatrix}}$ is called monotone if for any two graphs $G,H$ such that $G \in \mathcal{G}$ and $G \subseteq H$, then $H \in \mathcal{G}.$ 
+A property $\mathcal{G} \subseteq \lbrace 0,1\rbrace ^{\begin{pmatrix}[n] \\\2 \end{pmatrix}}$ is called monotone if for any two graphs $G,H$ such that $G \in \mathcal{G}$ and $G \subseteq H$, then $H \in \mathcal{G}.$ 
 
 For example, consider the monotone property of connectivity. It is known that if $p<\frac{(1-\varepsilon)\ln{n}}{n}$, then $G\sim G(n,p)$ almost surely is **disconnected** and if $p>\frac{(1+\varepsilon)\ln{n}}{n}$, then $G\sim G(n,p)$ almost surely is **connected**. In this case, $\Theta(\frac{\ln{n}}{n})$ is a threshold for the monotone property of connectivity, formally $p_{c}(\mathcal{G})$ the threshold of a monotone property is the probability $p_{c}$ for which $\Pr_{G\sim G(n,p_{c})}(G \in \mathcal{G})=\frac{1}{2}.$
 
@@ -42,8 +30,7 @@ For example, consider the monotone property of connectivity. It is known that if
 
 ### Lower Bound via Expectation
 Consider the monotone property: $G$ contains a triangles, that is an unordered triples $\lbrace i, j, k \rbrace$ such that $\lbrace i, j \rbrace$, $\lbrace j, k \rbrace$, and $\lbrace k, i \rbrace$ are edges in $G$.
-We wish to compute $$\Pr_{G\sim G(n,p)}(G \text { contains a triangle}).$$ Let $N_\triangle(G)$ be the number of triangles in $G$. Then, $$\Pr_{G\sim G(n,p)}(G \text { contains a triangle}) = \Pr_{G\sim G(n,p)}(N_\triangle(G) \geq 1).$$ We can rewrite the latter term using the expectation instead $$\begin{aligned}\Pr_{G\sim G(n,p)}(N_\triangle(G) \geq 1) &= \mathbb{E}[1_{N_\triangle(G) \geq 1}] \\\\
-&\leq \mathbb{E}[N_\triangle(G) 1_{N_\triangle(G) \geq 1}]\\\\ & =\mathbb{E}[N_\triangle(G)]\end{aligned} $$ Using linearity of expectation it is easy to compute $\mathbb{E}[N_\triangle(G)]$. $$N_\triangle(G)=\sum_{i<j<k}{X_{abc}}(G)$$
+We wish to compute $$\Pr_{G\sim G(n,p)}(G \text { contains a triangle}).$$ Let $N_\triangle(G)$ be the number of triangles in $G$. Then, $$\Pr_{G\sim G(n,p)}(G \text { contains a triangle}) = \Pr_{G\sim G(n,p)}(N_\triangle(G) \geq 1).$$ We can rewrite the latter term using the expectation instead $$\begin{aligned}\Pr_{G\sim G(n,p)}(N_\triangle(G) \geq 1) &= \mathbb{E}[1_{N_\triangle(G) \geq 1}] \\\\ &\leq \mathbb{E}[N_\triangle(G) 1_{N_\triangle(G) \geq 1}]\\\\ & =\mathbb{E}[N_\triangle(G)]\end{aligned} $$ Using linearity of expectation it is easy to compute $\mathbb{E}[N_\triangle(G)]$. $$N_\triangle(G)=\sum_{i<j<k}{X_{abc}}(G)$$
 where $X_{abc}$ is $1$ if the triangle $abc$ is contained in $G$ and $0$ otherwise. $$\begin{aligned}\mathbb{E}[N_\triangle(G)] &= \mathbb{E}\left[\sum_{a<b<c}{X_{abc}(G)}\right] \\\\&= \sum_{i<j<k}{\mathbb{E}[X_{abc}(G)]} \\\\&= \begin{pmatrix} n \\\\ 3 \end{pmatrix}p^3\end{aligned}  $$ From this it is clear that for $p = n^{-1}$, $$\begin{aligned}\Pr_{G\sim G(n,p)}(G \text{ contains a triangle}) &\leq \mathbb{E}[N_\triangle(G)] \\\\ &= \begin{pmatrix}n \\\\ 3 \end{pmatrix}n^{-3} \longrightarrow \frac{1}{6}\end{aligned} $$
 
 Since the probability that $G$ contains a triangle increases with $p$ we know that $p_{c}(\triangle) = \Omega(n^{-1}).$
