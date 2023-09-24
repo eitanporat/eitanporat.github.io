@@ -2,7 +2,7 @@
 author: "Eitan Porat"
 title: "A Note on the Kahn-Kalai Conjecture"
 date: "2023-03-18"
-description: "The Park-Pham Theorem gives us a tool for calculating the thresholds of graph properties. In this blog post we attempt to give a clear explanation of the proof, focusing on intuition and concrete examples."
+description: "The Park-Pham Theorem gives us a tool for calculating the thresholds of graph properties. In this blog post we attempt to give a clear explanation of the proof, focusing on intuition and concrete examples. v1"
 tags: ["random graphs"]
 ShowToc: true
 ShowBreadCrumbs: false
