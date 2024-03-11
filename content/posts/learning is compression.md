@@ -149,7 +149,7 @@ He proved that the number of bits required to store (without loss of information
 In the case where the code is a symbol code and all symbols are sample uniformly, I will provide a brief overview of the proof. By the Law of Large Numbers (see the previous blog post for a proof using the Ergodic Theorem)
 $$\Pr\left(|\lim_{n\to \infty}\frac{1}{n}\log \Pr(X_{1},\dots,X_{n}) - \mathbb{E}[\log \Pr(X_{1})]|>\varepsilon\right)\to 1$$ and $\mathbb{E}[\log \Pr(X_{1})]=H$ is called the entropy of the distribution.
 
-Therefore, typical sequences satisfy the condition $\frac{1}{n}\log \Pr(X_{1},\dots,X_{n}) \in H \pm \varepsilon$ with probability 1. So $\Pr(X_{1},\dots,X_{n}) \in 2^{-n(H\pm \varepsilon)}$ but since probabilities must sum to 1 there are at most $2^{n(H+\epsilon)}$ "typical" sequences. Our encoder works in the most näive way possible, it assigns each sequence a number from $0$ to $2^{n(H+\epsilon)}$, so it uses at most $n(H+\epsilon)$ bits. 
+Therefore, typical sequences satisfy the condition $\frac{1}{n}\log \Pr(X_{1},\dots,X_{n}) \in H \pm \varepsilon$ with probability 1. So $\Pr(X_{1},\dots,X_{n}) \in 2^{-n(H\pm \varepsilon)}$ but since probabilities must sum to 1 there are at most $2^{n(H+\epsilon)}$ "typical" sequences. Our encoder works in the most naïve way possible, it assigns each sequence a number from $0$ to $2^{n(H+\epsilon)}$, so it uses at most $n(H+\epsilon)$ bits. 
 
 Although incredibly easy to prove this theorem was profound and lay the foundations for text compression. Most compression schemes assume that the source is ergodic and given this assumption can compress optimally. 
 
@@ -313,4 +313,4 @@ Let's see how it performs! I ran the code with `max_context = 128` on the first 
 1. I think it's interesting to try more performant neural networks (such as GPT-2 XL or LLAMA) to try to push this even further.
 2. The implementation can be further improved by using [arithmetic coding](https://en.wikipedia.org/wiki/Arithmetic_coding) instead. There is an overhead for each token, because we are encoding even token separately instead of encoding the text using one floating point number between [0, 1].
 3. The [Hutter Prize](https://en.wikipedia.org/wiki/Hutter_Prize) was an inspiration for this blog post.
-4. Checkout the [notebook for my code](https://nbviewer.org/github/eitanporat/eitanporat.github.io/blob/main/content/posts/compression.ipynb)
+4. Check out the [notebook for my code](https://nbviewer.org/github/eitanporat/eitanporat.github.io/blob/main/content/posts/compression.ipynb)
