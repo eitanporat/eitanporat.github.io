@@ -307,7 +307,7 @@ def decompress(text):
 ```
 
 ## Results
-Let's see how it performs! I ran the code with `max_context = 128` on the first 10,000 characters of Emma by Jane Austen (80,000 bits). The compression algorithm and decompression algorithm ran in (5 min 49s) and (21min 44s) respectively. The size of the compressed text using our compression algorithm is **15,179 bits (18.9% compression rate)**, compared to the **35,784 bits (44.73% compression rate)** using the python native zlib library.
+Let's see how it performs! I ran the code with `max_context = 128` on the first 10,000 characters of Emma by Jane Austen (80,000 bits). The compression algorithm and decompression algorithm ran in (5 min 49s) and (21min 44s) respectively. The size of the compressed text using our compression algorithm is **15,179 bits (18.9% compression rate)**, compared to the **35,784 bits (44.73% compression rate)** using the Python native `zlib` library.
 
 # Closing Remarks
 1. I think it's interesting to try more performant neural networks (such as GPT-2 XL or LLAMA) to try to push this even further.
