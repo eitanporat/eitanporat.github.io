@@ -2,7 +2,7 @@
 author: "Eitan Porat"
 title: "Learning is Compression"
 date: "2024-03-10"
-description: In this blog post, we show how compressing data is equivalent to learning data distributions. Not in the sense that neural networks are compressing data in their weights, but in an information theoretic sense. Following up on the work on Shannon, we use a GPT-2 model from karpathy's nanoGPT repo to create a compression algorithm which combines Shannon encoding with next-token prediction. Using this model, we get a compression algorithm which beats the native python implementation (18.9% vs 44.73%)
+description: In this blog post, we see how compressing data is equivalent to learning data distributions. Not in the sense that neural networks are compressing data in their weights, but in an information theoretic sense. Following up on the work on Shannon, we use a GPT-2 model from karpathy's nanoGPT repo to create a compression algorithm which combines Shannon encoding with next-token prediction. Using this model, we get a compression algorithm which beats the native python implementation (18.9% vs 44.73%)
 tags: 
 ShowToc: true
 ShowBreadCrumbs: false
