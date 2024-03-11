@@ -10,7 +10,7 @@ math: true
 collapse: true
 ---
 # A Mathematical Theory of Communication
-In 1948, Claude E. Shannon working in Bell Labs published his paper ["A Mathematical Theory of Communication"](https://math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf). Shannon was interested in modeling the English language. In his paper, he assumed that the English language has a 27-symbol alphabet of 26 letters and a space. He tried to model it using stochastic processes.
+In 1948, Claude E. Shannon, while working in Bell Labs published his paper ["A Mathematical Theory of Communication"](https://math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf). Shannon was interested in modeling the English language. In his paper, he assumed that the English language has a 27-symbol alphabet of 26 letters and a space. He tried to model it using stochastic processes.
 
 The simplest stochastic process to model English is a process where each symbol is sampled equiprobably and independently. To give a visual idea of how this process "looks" he gave as an example for a typical sequence of characters. 
 Let's replicate his experiment using Python. First, we will load a corpus using the `nltk` package ([Emma by Jane Austen](https://en.wikipedia.org/wiki/Emma_(novel)))
@@ -310,7 +310,7 @@ def decompress(text):
 Let's see how it performs! I ran the code with `max_context = 128` on the first 10,000 characters of Emma by Jane Austen (80,000 bits). The compression algorithm and decompression algorithm ran in (5 min 49s) and (21min 44s) respectively. The size of the compressed text using our compression algorithm is **15,179 bits (18.9% compression rate)**, compared to the **35,784 bits (44.73% compression rate)** using the Python native `zlib` library.
 
 # Closing Remarks
-1. I think it's interesting to try more performant neural networks (such as GPT-2 XL or LLAMA) to try to push this even further.
+1. I think it's interesting to try more performant neural networks (such as GPT-2 XL or LLAMA) to try to push this even further. As we saw better prediction equals better compression.
 2. The implementation can be further improved by using [arithmetic coding](https://en.wikipedia.org/wiki/Arithmetic_coding) instead. There is an overhead for each token, because we are encoding even token separately instead of encoding the text using one floating point number between [0, 1].
 3. The [Hutter Prize](https://en.wikipedia.org/wiki/Hutter_Prize) was an inspiration for this blog post.
 4. Check out the [notebook for my code](https://nbviewer.org/github/eitanporat/eitanporat.github.io/blob/main/content/posts/compression.ipynb)
