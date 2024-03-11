@@ -311,6 +311,6 @@ Let's see how it performs! I ran the code with `max_context = 128` on the first 
 
 ### Closing Remarks
 1. I think it's interesting to try more performant neural networks (such as GPT-2 XL or LLAMA) to try to push this even further.
-2. The implementation can be further improved by using (arithmetic coding)[https://en.wikipedia.org/wiki/Arithmetic_coding] instead. There is an overhead for each token, because we are encoding even token separately instead of encoding the text using one floating point number between [0, 1].
-3. The (Hutter Prize)[https://en.wikipedia.org/wiki/Hutter_Prize] was an inspiration for this blog post.
+2. The implementation can be further improved by using [arithmetic coding](https://en.wikipedia.org/wiki/Arithmetic_coding) instead. There is an overhead for each token, because we are encoding even token separately instead of encoding the text using one floating point number between [0, 1].
+3. The [Hutter Prize](https://en.wikipedia.org/wiki/Hutter_Prize) was an inspiration for this blog post.
 4. Checkout the [notebook for my code](https://nbviewer.org/github/eitanporat/eitanporat.github.io/blob/main/content/posts/compression.ipynb)
