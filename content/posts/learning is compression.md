@@ -2,7 +2,7 @@
 author: "Eitan Porat"
 title: "Learning is Compression"
 date: "2024-03-10"
-description: In this blog post we show how compressing data is equivalent to learning data distributions. Not in the sense that neural networks are compressing data in their weight, but in an information theoretic sense. Following up on the work on Shannon, we use a GPT-2 model from karpathy's nanoGPT repo to create a compression algorithm which combines Shannon encoding with next-token prediction. Using this model, we get a compression algorithm which beats the native python implementation (18.9% vs 44.73%)
+description: In this blog post, we show how compressing data is equivalent to learning data distributions. Not in the sense that neural networks are compressing data in their weights, but in an information theoretic sense. Following up on the work on Shannon, we use a GPT-2 model from karpathy's nanoGPT repo to create a compression algorithm which combines Shannon encoding with next-token prediction. Using this model, we get a compression algorithm which beats the native python implementation (18.9% vs 44.73%)
 tags: 
 ShowToc: true
 ShowBreadCrumbs: false
@@ -12,8 +12,8 @@ collapse: true
 # A Mathematical Theory of Communication
 In 1948, Claude E. Shannon working in Bell Labs published his paper ["A Mathematical Theory of Communication"](https://math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf). Shannon was interested in modeling the English language. In his paper assumed that the English language has a 27-symbol alphabet of 26 letters and a space. He tried to model it using stochastic processes.
 
-The simplest stochastic process to model english is a process where ever symbol is sampled equiprobably and indepedently. To give a visual idea of how this process "looks" he gave as an example for a typical sequence. 
-Let's replicate his experiment using Python. We can load a corpus using NLTK ([Emma by Jane Austen](https://en.wikipedia.org/wiki/Emma_(novel)))
+The simplest stochastic process to model English is a process where each symbol is sampled equiprobably and indepedently. To give a visual idea of how this process "looks" he gave as an example for a typical sequence. 
+Let's replicate his experiment using Python. We can load a corpus using `nltk` ([Emma by Jane Austen](https://en.wikipedia.org/wiki/Emma_(novel)))
 
 ```python import nltk
 from nltk.corpus import gutenberg
@@ -105,7 +105,7 @@ It doesn't look like English because we are sampling the n-grams completely inde
 
 ```python 
 def marginal(prefix, counts_table):
-  marginal_counts_table = {ngram[-1]: count for ngram, count in counts_table.items() if ngram[:-1] == prefix}
+  marginal_freqs = {ngram[-1]: count for ngram, count in freqs.items() if ngram[:-1] == prefix}
   if not marginal_freqs:
     marginal_freqs = english_freqs
 
@@ -133,7 +133,7 @@ although the output is nonsensical it looks much better. We are starting to see 
 ## Pros and Cons to our Method
 There are some major disadvantages to our method:
 * The method scales exponentially with the length of the n-grams
-* The longer the n-grams because the less likely they will be recording in our frequencies table. We can actually see quality deteriorate as we make the table bigger.
+* The longer the n-grams becomes, the less likely they will be recording in our frequencies table. We can actually see quality deteriorate as we make the table bigger.
 * The method assumes that the distribution is stationary, we sampled characters using the same law
 
 We could improve our method in several ways:
@@ -231,7 +231,7 @@ def decode(string, encoding):
 Assume that there exists a real probability distribution over the English language strings, let's denote it by $\mathbb{P}^{real}$, and let $\mathbb{P}^{pred}$ the probability distribution obtained from our black box. let $T$ be the length of the strings of this distribution then
 $$\mathbb{E}\_{X_{1}\dots X_{T}\sim\mathbb{P}^{real}}\left[\left|E\left(X_{1}\dots X_{t}\right)\right|\right] = \sum_{i=1}^{T}\mathbb{E}\_{X_{1}\dots X_{i}\sim\mathbb{P}^{real}}\left[\left|E\left(X_{i}\mid X_{1}\dots X_{i-1}\right)\right|\right]$$ by the sequential encoding assumption. By Shannon's encoding $$\sum_{i=1}^{T}\mathbb{E}\_{X_{1}\dots X_{i}\sim\mathbb{P}^{real}}\left[\left|E\left(X_{i}\mid X_{1}\dots X_{i-1}\right)\right|\right]\leq -\sum_{i=1}^{T}\mathbb{E}\_{X_{1}\dots X_{i}\sim\mathbb{P}^{real}}\left[\log_{2}\mathbb{P}^{pred}\left(X_{i}\mid X_{1}\dots X_{i-1}\right)\right]+1$$ rearranging we get $$-\sum_{i=1}^{T}\mathbb{E}\_{X_{1}\dots X_{i-1}\sim\mathbb{P}^{real}}\left[\mathbb{E}\_{X_{i}\mid X_{1}\dots X_{i-1}\sim\mathbb{P}^{real}}\left[\log_{2}\mathbb{P}^{pred}\left(X_{i}\mid X_{1}\dots X_{i-1}\right)\right]\right]+1$$ which is the cross entropy loss-function between $\mathbb{P}^{real}\left(X_{i}\mid X_{1}\dots X_{i-1}\right)$ and $\mathbb{P}^{pred}\left(X_{i}\mid X_{1}\dots X_{i-1}\right)$, the cross entropy between black box's prediction of the marginal and the real marginal distribution. The cross entropy is minimized when $\mathbb{P}^{pred}=\mathbb{P}^{real}$ in which case we get the sum of the entropy of the marginals. In conclusion, **next-character (or next-token) prediction is equivalent to sequential compression**.
 
-To hammer the point home, let's use a Transformer model as our black box and combine it with Shannon's encoding to get a pretty good compression model. I used [Karpathy's nanoGPT](https://github.com/karpathy/nanoGPT) GPT-2 as a next-token predictor. Instead of working on the character level it operates on the token level using byte-pair encoding.
+To hammer the point home, let's use a [Transformer model](https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)) as our black box and combine it with Shannon's encoding to get a pretty good compression model. I used [Karpathy's nanoGPT](https://github.com/karpathy/nanoGPT) GPT-2 as a next-token predictor. Instead of working on the character level it operates on the token level using [byte-pair encoding](https://en.wikipedia.org/wiki/Byte_pair_encoding).
 
 To encode a string of text we first tokenize it and then encode each token according to the marginal distribution we obtain by running the model on all of the previous token. We encode this marginal distribution using Shannon encoding. That is we apply Shannon's encoding to each new token, we get a different encoding table for every token.
 
