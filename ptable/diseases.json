@@ -1,0 +1,242 @@
+[
+    {
+        "organ": "Bone",
+        "cellType": "Osteocytes",
+        "diseaseName": "Osteoporosis",
+        "row": 1,
+        "column": 1,
+        "diseaseClass": "Degenerative"
+    },
+    {
+        "organ": "Muscle",
+        "cellType": "Myocytes",
+        "diseaseName": "Sarcopenia",
+        "row": 2,
+        "column": 1,
+        "diseaseClass": "Degenerative"
+    },
+    {
+        "organ": "Brain",
+        "cellType": "Neurons",
+        "diseaseName": "Alzheimer's",
+        "row": 3,
+        "column": 1,
+        "diseaseClass": "Degenerative"
+    },
+    {
+        "organ": "Brain",
+        "cellType": "Basal ganglia",
+        "diseaseName": "Parkinson's",
+        "row": 4,
+        "column": 1,
+        "diseaseClass": "Degenerative"
+    },
+    {
+        "organ": "Eye",
+        "cellType": "Retina",
+        "diseaseName": "Macular Degeneration",
+        "row": 5,
+        "column": 1,
+        "diseaseClass": "Degenerative"
+    },    
+    {
+        "organ": "Eye",
+        "cellType": "Lens",
+        "diseaseName": "Cataract",
+        "row": 6,
+        "column": 1,
+        "diseaseClass": "Degenerative"
+    },
+    {
+        "organ": "Small blood vessel",
+        "cellType": "Endothelium",
+        "diseaseName": "Vascular Fibrosis",
+        "row": 1,
+        "column": 2,
+        "diseaseClass": "Progressive Fibrotic"
+    },
+    {
+        "organ": "Liver",
+        "cellType": "Hepatocytes",
+        "diseaseName": "Cirrhosis",
+        "row": 2,
+        "column": 2,
+        "diseaseClass": "Progressive Fibrotic"
+    },
+    {
+        "organ": "Heart",
+        "cellType": "Cardiomyocytes",
+        "diseaseName": "Heart Failure",
+        "row": 3,
+        "column": 2,
+        "diseaseClass": "Progressive Fibrotic"
+    },
+    {
+        "organ": "Joint",
+        "cellType": "Chondrocytes",
+        "diseaseName": "Osteoarthritis",
+        "row": 4,
+        "column": 2,
+        "diseaseClass": "Progressive Fibrotic"
+    },
+    {
+        "organ": "Kidney",
+        "cellType": "Podocytes",
+        "diseaseName": "Glomerulosclerosis",
+        "row": 5,
+        "column": 2,
+        "diseaseClass": "Progressive Fibrotic"
+    },
+    {
+        "organ": "Lung",
+        "cellType": "Alveoli",
+        "diseaseName": "IPF",
+        "row": 2,
+        "column": 3,
+        "diseaseClass": "Progressive Fibrotic"
+    }, 
+    {
+        "organ": "Liver",
+        "cellType": "Cholangiocyte",
+        "diseaseName": "PSC",
+        "row": 3,
+        "column": 3,
+        "diseaseClass": "Progressive Fibrotic"
+    },
+    {
+        "organ": "Large artery",
+        "cellType": "Endothelium",
+        "diseaseName": "Atherosclerosis Vasculitis",
+        "row": 4,
+        "column": 3,
+        "diseaseClass": "Progressive Fibrotic"
+    },
+    {
+        "organ": "Eye",
+        "cellType": "Cornea",
+        "diseaseName": "Pterygium",
+        "row": 5,
+        "column": 3,
+        "diseaseClass": "Progressive Fibrotic"
+    },
+    {
+        "organ": "Fat",
+        "cellType": "Adipocytes",
+        "diseaseName": "Lipoma",
+        "row": 2,
+        "column": 4,
+        "diseaseClass": "Cancer"
+    },
+    {
+        "organ": "Thyroid",
+        "cellType": "Thyrocyte",
+        "diseaseName": "Hashimoto's Toxic Nodules",
+        "row": 3,
+        "column": 4,
+        "diseaseClass": "Autoimmune"
+    },
+    {
+        "organ": "Pancreas",
+        "cellType": "Beta Cells",
+        "diseaseName": "Type I Diabetes",
+        "row": 4,
+        "column": 4,
+        "diseaseClass": "Autoimmune"
+    },
+    {
+        "organ": "Pituitary",
+        "cellType": "Somatotropes",
+        "diseaseName": "Acromegaly",
+        "row": 5,
+        "column": 4,
+        "diseaseClass": "Toxic Adenoma"
+    },
+    {
+        "organ": "Pituitary",
+        "cellType": "Corticotropes",
+        "diseaseName": "Cushing's",
+        "row": 6,
+        "column": 4,
+        "diseaseClass": "Toxic Adenoma"
+    },
+    {
+        "organ": "Breast",
+        "cellType": "Breast cells",
+        "diseaseName": "Ductal Carcinoma",
+        "row": 2,
+        "column": 5,
+        "diseaseClass": "Cancer"
+    },
+    {
+        "organ": "Adrenal Cortex",
+        "cellType": "Epithelium",
+        "diseaseName": "Addison's Cushing's",
+        "row": 3,
+        "column": 5,
+        "diseaseClass": "Autoimmune"
+    },
+    {
+        "organ": "Skin",
+        "cellType": "Melanocytes",
+        "diseaseName": "Vitriligo",
+        "row": 4,
+        "column": 5,
+        "diseaseClass": "Autoimmune"
+    },
+    {
+        "organ": "Parathyroid",
+        "cellType": "Chief Cells",
+        "diseaseName": "Hyperparathyroidism",
+        "row": 5,
+        "column": 5,
+        "diseaseClass": "Toxic Adenoma"
+    },
+    {
+        "organ": "Pituitary",
+        "cellType": "Gonadotropes",
+        "diseaseName": "Hypergonadism",
+        "row": 6,
+        "column": 5,
+        "diseaseClass": "Toxic Adenoma"
+    },
+    {
+        "organ": "Skin",
+        "cellType": "Keratinocytes",
+        "diseaseName": "Dermatitis",
+        "row": 1,
+        "column": 6,
+        "diseaseClass": "Immune Hypersensitivity"
+    },
+    {
+        "organ": "Intestine",
+        "cellType": "Epithelium",
+        "diseaseName": "Inflammatory Bowel Disease",
+        "row": 2,
+        "column": 6,
+        "diseaseClass": "Immune Hypersensitivity"
+    },
+    {
+        "organ": "Lung",
+        "cellType": "Bronchial Epithelium",
+        "diseaseName": "Asthma",
+        "row": 3,
+        "column": 6,
+        "diseaseClass": "Immune Hypersensitivity"
+    },
+    {
+        "organ": "Stomach",
+        "cellType": "Parietal Cells",
+        "diseaseName": "Pernicious Anemia",
+        "row": 4,
+        "column": 6,
+        "diseaseClass": "Immune Hypersensitivity"
+    },
+    {
+        "organ": "Nasal",
+        "cellType": "Epithelium",
+        "diseaseName": "Rhinitis",
+        "row": 5,
+        "column": 6,
+        "diseaseClass": "Immune Hypersensitivity"
+    }
+]

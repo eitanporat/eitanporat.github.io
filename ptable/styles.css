@@ -1,0 +1,216 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+    padding: 10px;
+    font-size: small;
+}
+
+.layout-container {
+    margin-left: auto;
+    margin-right: auto;
+    gap: 20px;
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
+    margin-top: 20px; /* Add some top margin */
+    display: flex;
+    flex-direction: row; /* Position the selected disease panel to the left */
+}
+
+#app {
+    max-width: 1200px;
+    /* margin: 0 auto; Center the container horizontally */
+    display: flex; /* Use flexbox for layout */
+    gap: 20px;
+}
+
+/* Style for the disease class container to lay out items in a row */
+.disease-class-container {
+    display: flex; /* Use flexbox for a horizontal layout */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    gap: 20px; /* Space between items */
+    padding: 10px 0; /* Padding on top and bottom */
+}
+
+/* Style for individual disease class items */
+.disease-class {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Align the text and the box vertically */
+    gap: 5px; /* Space between the color box and the label */
+}
+
+/* Style for the color box that precedes the label */
+.disease-class-color-box {
+    width: 20px; /* Width of the color box */
+    height: 20px; /* Height of the color box */
+    background-color: #000; /* Placeholder color, this will be set dynamically */
+    border: 1px solid #000; /* Border to distinguish box when color is light */
+    flex-shrink: 0; /* Prevent the color box from shrinking */
+}
+
+/* Style for the label next to the color box */
+.disease-class-label {
+    font-size: 0.9rem; /* Smaller font size */
+    color: #333; /* Color for the label */
+}
+
+.dimmed {
+    opacity: 0.6; /* Reduce opacity to dim the element */
+    filter: grayscale(100%); /* Turn the element grayscale */
+    pointer-events: none; /* Disable pointer events on dimmed elements */
+}
+
+.disease-class:hover .disease-class-color-box {
+    background-color: #666; /* Darken the color box on hover */
+}
+
+.disease-class:hover .disease-class-label {
+    color: #555; /* Change label color on hover */
+}
+
+/* Styling for the disease class and disease containers */
+.diseases-container {
+    display: grid;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid #ccc; /* Add a border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a nice shadow */
+    padding: 10px;
+    grid-template-columns: repeat(auto-fill, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+    gap: 10px;
+    align-items: center;
+    justify-items: center;
+}
+
+.disease {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    background-color: #e6f4f1;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    height: 100px;
+    width: 100px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.disease:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.organ-name {
+    font-weight: bold;
+    margin: none;
+}
+
+.cell-type {
+    color: #555;
+    margin: none;
+}
+
+.disease-name {
+    color: #d9534f;
+    margin: none;
+}
+
+.selected-disease {
+    font-size: large;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: #e6f4f1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden; /* Hide overflowing content */
+    max-width: 100%; /* Ensure the selected disease is not wider than the diseases elements */
+    width: 200px; /* Set the width to match the disease elements */
+    height: auto; /* Set the height to match the disease elements */
+    margin: 0 auto; /* Center the selected disease panel horizontally */
+    color: #333; /* Set the text color to match the disease elements */
+}
+
+.selected-disease-container {
+    flex-basis: 200px; /* Set a fixed width for the selected disease panel */
+    padding-right: 20px; /* Add some right padding to separate from other content */
+    overflow-y: auto; /* Enable vertical scrolling for the selected disease panel */
+}
+
+.selected-disease-content {
+    height: 100%; /* Set the height of the content container */
+    overflow-y: auto; /* Enable vertical scrolling for content */
+}
+
+.selected-disease:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.selected-disease .organ-name,
+.selected-disease .cell-type {
+    color: #555; /* Set the color for organ name and cell type */
+}
+
+.selected-disease .disease-name {
+    color: #d9534f; /* Set the color for the disease name */
+}
+
+.selected-disease-panel {
+    height: auto; /* Auto height for smaller screens */
+    order: -1; /* Make the selected disease panel appear first */
+    align-self: flex-start; /* Align the selected disease panel to the start (left) */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        font-size: small; /* Decrease font size for smaller screens */;
+    }
+
+    #app {
+        flex-direction: column; /* Switch to a single column layout */
+    }
+
+    .selected-disease-panel {
+        height: auto; /* Auto height for smaller screens */
+        order: -1; /* Make the selected disease panel appear first */
+        align-self: flex-start; /* Align the selected disease panel to the start (left) */
+    }
+
+    .disease {
+        height: 80px;
+        width: 80px;
+        font-size: 0.6rem; /* Decrease font size for smaller screens */
+    }
+
+    .selected-disease-panel {
+        height: auto;
+        width: calc(90vw); /* Use 90% of viewport width */
+        padding: 10px;
+    }
+
+    .disease-class-label {
+        font-size: 0.6rem; /* Smaller font size */
+    }
+}
+
+.diseases-container > div {
+    overflow: auto;
+    white-space: normal;
+    word-wrap: break-word;
+    hyphens: auto;
+}
