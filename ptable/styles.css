@@ -1,51 +1,63 @@
-/* Reset some default styles */
 * {
-    margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+}
+
+.content-container {
+    margin-left: 50px;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
     color: #333;
     background-color: #f4f4f4;
-    padding: 10px;
     font-size: small;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;;
+}
+
+.outer-layout-container {
+    display: flex;
+    flex-direction: column;
 }
 
 .layout-container {
-    margin-left: auto;
-    margin-right: auto;
-    gap: 20px;
-    overflow-x: auto; /* Allow horizontal scrolling if needed */
-    margin-top: 20px; /* Add some top margin */
+    margin-top: 5px;
     display: flex;
-    flex-direction: row; /* Position the selected disease panel to the left */
+    align-items: center;
+}
+
+.settings-container {
+    display: flex;
+    justify-content: center; /* Center the children horizontally */
+    flex-wrap: wrap;
 }
 
 #app {
-    max-width: 1200px;
     /* margin: 0 auto; Center the container horizontally */
     display: flex; /* Use flexbox for layout */
     gap: 20px;
+    flex-direction: column;;
 }
 
-/* Style for the disease class container to lay out items in a row */
 .disease-class-container {
-    display: flex; /* Use flexbox for a horizontal layout */
-    justify-content: center; /* Center items horizontally */
-    align-items: center; /* Center items vertically */
-    gap: 20px; /* Space between items */
-    padding: 10px 0; /* Padding on top and bottom */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.disease-class {
+    max-width: 200px;
 }
 
 /* Style for individual disease class items */
 .disease-class {
+    margin: 10px;
     display: flex; /* Use flexbox for layout */
     align-items: center; /* Align the text and the box vertically */
     gap: 5px; /* Space between the color box and the label */
+    width: fit-content;
 }
 
 /* Style for the color box that precedes the label */
@@ -59,14 +71,38 @@ body {
 
 /* Style for the label next to the color box */
 .disease-class-label {
+    display: inline-block; /* Adjust width automatically depending on text */
+    white-space: nowrap; /* Prevent text from wrapping to new lines */
+    overflow: hidden; /* Hide any overflowing text */
+    text-overflow: ellipsis; /* Show ellipsis (...) for truncated text */
+    color: #333; /* Color for the label */
+}
+
+.slider-container {
+    margin-left: 10px;
+}
+/* Style for the label next to the color box */
+.disease-class-label {
+    display: inline-block; /* Adjust width automatically depending on text */
+    
     font-size: 0.9rem; /* Smaller font size */
     color: #333; /* Color for the label */
 }
 
+.age-label, .incidence-label {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
 .dimmed {
-    opacity: 0.6; /* Reduce opacity to dim the element */
-    filter: grayscale(100%); /* Turn the element grayscale */
+    opacity: 0.6 !important; /* Reduce opacity to dim the element */
+    filter: grayscale(100%) !important; /* Turn the element grayscale */
     pointer-events: none; /* Disable pointer events on dimmed elements */
+}
+
+.disease.focused {
+    opacity: 1 !important;
+    filter: none !important;
 }
 
 .disease-class:hover .disease-class-color-box {
@@ -85,16 +121,55 @@ body {
     border: 1px solid #ccc; /* Add a border */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a nice shadow */
     padding: 10px;
-    grid-template-columns: repeat(auto-fill, 1fr);
-    grid-auto-rows: minmax(100px, auto);
-    gap: 10px;
+    gap: 3px;
+    margin: 0 auto;
+    max-width: 99vw;
     align-items: center;
     justify-items: center;
+    overflow-y: auto; /* Enable vertical scrolling for the diseases container */
+    overflow-x: auto; /* Enable vertical scrolling for the diseases container */
 }
 
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+
+#ageValue, #incidenceValue {
+font-size: 16px;
+color: #333;
+}
+
+.ratio-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .ratio-part {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+  }
+  
+  .ratio-colon {
+    position: absolute;
+    left: 50%;
+    /* transform x and y to center the colon */
+    transform: translate(-50%, -5%);
+    font-weight: bolder;
+  }
+  
+  .ratio-text-left, .ratio-text-right {
+    flex: 1; /* Each text takes up equal space */
+  }
+
+  
 .disease {
-    padding-bottom: 10px;
-    padding-top: 10px;
     background-color: #e6f4f1;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -103,12 +178,56 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; /* Specify properties for transition */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
-.disease:hover {
+.disease .disease-name,
+.disease .organ-name,
+.disease .cell-type {
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+    max-height: 80px; /* Adjust to fit content */
+    opacity: 1;
+}
+
+.disease .disease-name {
+    font-weight: bold;
+}
+
+.disease .cell-type,
+.disease .organ-name,
+.disease .disease-name {
+    font-size: smaller;
+}
+
+.disease .gender-ratio-text {
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 1s ease;
+    max-height: 40px; /* Adjust to fit content */
+    font-size: 15px;
+}
+ 
+.disease.show-ratio .gender-ratio-text {
+    max-height: 40px; /* Adjust to fit content */
+    opacity: 1;
+}
+
+.disease.show-ratio .organ-name,
+.disease.show-ratio .cell-type {
+    max-height: 0px;
+    opacity: 0;
+}
+
+.disease-hovered {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
+}
+
+.disease.selected {
+    /* Styles for selected disease element */
+    border: 2px solid blue;
 }
 
 .organ-name {
@@ -121,15 +240,82 @@ body {
     margin: none;
 }
 
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin: 5px;
+}
+  
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+}
+  
+.switch-label {
+font-size: 1.5rem; /* Adjust the font size as needed */
+color: #333; /* Adjust the color as needed */
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 5px;
+    top: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #8BC34A; /* Green color for the slider */
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #8BC34A;
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+.slider:active:before {
+    width: 24px; /* Slightly larger circle on the slider when clicked */
+}
+  
+.disease-class:hover .gender-ratio-text {
+    opacity: 1; /* Fully visible on hover */
+    visibility: visible; /* Visible on hover */
+}
+
 .disease-name {
     color: #d9534f;
-    margin: none;
 }
 
 .selected-disease {
     font-size: large;
     padding: 10px;
-    margin-bottom: 20px;
     border-radius: 10px;
     background-color: #e6f4f1;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -139,17 +325,17 @@ body {
     overflow: hidden; /* Hide overflowing content */
     max-width: 100%; /* Ensure the selected disease is not wider than the diseases elements */
     width: 200px; /* Set the width to match the disease elements */
-    height: auto; /* Set the height to match the disease elements */
+    height: 200px; /* Set the height to match the disease elements */
     margin: 0 auto; /* Center the selected disease panel horizontally */
     color: #333; /* Set the text color to match the disease elements */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack the elements vertically */
+    align-items: center;
 }
 
-.selected-disease-container {
-    flex-basis: 200px; /* Set a fixed width for the selected disease panel */
-    padding-right: 20px; /* Add some right padding to separate from other content */
-    overflow-y: auto; /* Enable vertical scrolling for the selected disease panel */
+.selected-disease .disease-name {
+    font-weight: bold;;
 }
-
 .selected-disease-content {
     height: 100%; /* Set the height of the content container */
     overflow-y: auto; /* Enable vertical scrolling for content */
@@ -169,48 +355,288 @@ body {
     color: #d9534f; /* Set the color for the disease name */
 }
 
-.selected-disease-panel {
-    height: auto; /* Auto height for smaller screens */
-    order: -1; /* Make the selected disease panel appear first */
-    align-self: flex-start; /* Align the selected disease panel to the start (left) */
+.selected-disease-container {
+    order: -1;
+    margin: 100px;
+    width: 300px;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    body {
-        font-size: small; /* Decrease font size for smaller screens */;
-    }
-
-    #app {
-        flex-direction: column; /* Switch to a single column layout */
-    }
-
-    .selected-disease-panel {
-        height: auto; /* Auto height for smaller screens */
-        order: -1; /* Make the selected disease panel appear first */
-        align-self: flex-start; /* Align the selected disease panel to the start (left) */
-    }
-
-    .disease {
-        height: 80px;
-        width: 80px;
-        font-size: 0.6rem; /* Decrease font size for smaller screens */
-    }
-
-    .selected-disease-panel {
-        height: auto;
-        width: calc(90vw); /* Use 90% of viewport width */
-        padding: 10px;
-    }
-
-    .disease-class-label {
-        font-size: 0.6rem; /* Smaller font size */
-    }
-}
 
 .diseases-container > div {
-    overflow: auto;
     white-space: normal;
     word-wrap: break-word;
     hyphens: auto;
+}
+
+.table-wrapper {
+    margin-top: 20px;
+}
+
+.disease-attributes-table {
+    width: 330px;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.disease-attributes-table th,
+.disease-attributes-table td {
+    border-bottom: 1px solid #ddd;
+    padding: 12px 16px;
+    text-align: left;
+}
+
+.disease-attributes-table th:first-child,
+.disease-attributes-table td:first-child {
+  width: 50%; /* First column takes up 60% of the table's width */
+}
+
+.disease-attributes-table th:last-child,
+.disease-attributes-table td:last-child {
+  width: 50%; /* Second column takes up 40% of the table's width */
+}
+
+.navbar {
+    background-color: #f8f8f8;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+.navbar-logo {
+height: 40px;  
+margin-right: 10px;
+}
+
+.navbar-title {
+font-size: 24px;
+color: #333;
+}
+
+.disease-attributes-table th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+.disease-attributes-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.disease-attributes-table tr:hover {
+    background-color: #eaeaea;
+}
+
+.disease-attributes-table th:first-child,
+.disease-attributes-table td:first-child {
+    border-right: 1px solid #ddd;
+}
+
+.vertical-axis-label {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: -350px; /* Adjust as needed to position the label to the left of the vertical axis */
+    top: 50%;
+    transform: rotate(-90deg); /* Rotate label and shift to center */
+    transform-origin: center; /* Set the origin of transform */
+}
+  
+.vertical-axis-label-line {
+    flex-grow: 1;
+    width: 280px; /* Length of the lines */
+    border-top: 1px solid black; /* Use border-top for visibility */
+}
+
+.vertical-axis-label-text {
+white-space: nowrap; /* Keep the text on one line */
+padding: 0 10px; /* Add some space around the text */
+}
+
+.vertical-axis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribute items evenly */
+    align-items: flex-end; /* Align labels to the end/right */
+    position: absolute;
+    top: 20px; /* Align with the top of the table */
+    bottom: 20px; /* Align with the bottom of the table */
+    left: -30px; /* Position to the left of the content container */
+}
+
+.horizontal-axis-label {
+    display: flex;
+    align-items: center;
+    position: absolute;
+}
+  
+
+.horizontal-axis-label-text {
+    white-space: nowrap; /* Keep the text on one line */
+    padding: 0 10px; /* Add some space around the text */
+}
+
+.horizontal-axis {
+    display: flex;
+    justify-content: space-around; /* Evenly distribute labels */
+    position: absolute;
+    top: -20px; /* Position it above the table */
+    left: 0;
+    right: 0;
+    height: 20px; /* Set a fixed height for the axis */
+}
+
+.diseases-labels-row {
+    display: flex;
+    
+}
+  
+.disease-column-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+}
+  
+.horizontal-axis-label-line {
+    flex-grow: 1;
+    width: 300px; /* Length of the lines */
+    border-top: 1px solid black; /* Use border-top for visibility */
+}
+
+  
+/* Responsive adjustments */
+/* Adjustments for smaller screens */
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .outer-layout-container {
+      flex-direction: column;
+    }
+
+    .disease-attributes-table {
+        width: 250px;
+    }
+    
+    .disease .cell-type, 
+    .disease .organ-name, 
+    .disease .disease-name {
+        font-size: 8px;
+    }
+  
+    .diseases-container {
+        max-width: 86vw;
+    }
+
+    .disease {
+        padding: 5px;
+        width: 70px; /* Adjust width as needed */
+        height: 70px; /* Adjust height as needed */
+        font-size: 10px;
+    }
+
+    .disease .gender-ratio-text {
+        font-size: 12px;
+    }
+    .disease-class-label {
+        font-size: small;
+    }
+    .layout-container {
+      flex-direction: column;
+    }
+  
+    .content-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      margin-left: 40px;
+    }
+  
+    .selected-disease-container {
+      order: -1; /* Move the selected disease container above the table */
+      width: 95vw; /* Set width to 100% of the screen */
+      height: 100px; /* Auto height for smaller screens */
+      display: flex;
+      margin: 0px;
+      flex-basis: fit-content;
+      flex-direction: row;
+      align-items: center; /* Center the selected disease panel vertically */;
+      justify-content: center; /* Center the selected disease panel horizontally */
+    }
+
+    .selected-disease {
+      font-size: 10px;
+      width: 100px; /* Adjust width as needed */
+      height: 100px; /* Adjust height as needed */
+      align-items: center;
+    }
+
+    .disease-attributes-table {
+        font-size: smaller;
+        margin: 0px;
+    }
+
+    #ageSlider,
+    #incidenceSlider {
+      width: 100px; /* Smaller width for mobile screens */
+    }
+
+    #incidenceValue {
+      width: 10px;
+    }
+
+    .disease-class {
+        margin: 5px;
+    }
+
+    .age-label, .incidence-label {
+        font-size: 12px;
+        margin-right: 5px;
+    }
+    
+    #ageValue, #incidenceValue {
+        font-size: 12px;
+        color: #333;
+    }
+
+    .switch-label {
+        font-size: 16px; /* Adjust the font size as needed */
+    }
+
+    .slider-container {
+        gap: 5px;
+    }
+
+    .disease-attributes-table td {
+        padding: 4px 6px;
+    }
+
+    .vertical-axis {
+        left: -27px;
+    }
+
+    .vertical-axis-label {
+        left: -160px;
+    }
+
+    .vertical-axis-label-line {
+        width: 100px; /* Length of the lines */
+    }
+
+    .horizontal-axis-label-line {
+        width: 100px; /* Length of the lines */
+    }
+
+    .disease-column-label {
+        font-size: 11px;
+    }
+
+}
+
+@media (max-width: 400px) {
+    .selected-disease {
+        margin: 5px;
+    }
 }

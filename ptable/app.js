@@ -305,8 +305,8 @@ class PeriodicTableApp {
         this.selectDisease(index, false);
       }
     });
-
-    const clickevent = () => {
+  
+    function mouseClick() {
       // Check if the clicked element is already selected
       if (element.classList.contains("selected")) {
         // If it is selected, remove the class and unselect it
@@ -320,17 +320,17 @@ class PeriodicTableApp {
         });
         element.classList.add("selected");
         this.selectionFinalized = true;
-        this.selectDisease(index, true);
+        this.selectDisease(index);
       }
     
       // Re-enable the hover effect for all disease elements
       document.querySelectorAll('.disease').forEach(disease => {
         disease.classList.add('hoverable');
       });
-    };
-    
-    element.addEventListener("touchstart", clickevent);
-    element.addEventListener("click", clickevent);
+    }
+
+    element.addEventListener("touchstart", mouseClick);
+    element.addEventListener("click", mouseClick);
 
     return element;
   }
@@ -374,7 +374,6 @@ class PeriodicTableApp {
   
 
   selectDisease(index, finalize=true) {
-    console.log(finalize);
     this.selectedDiseaseIndex = index;
 
     // Update the selected disease display
