@@ -223,61 +223,119 @@ $$
   <li><strong>A verifier.</strong> A function scoring whether $\hat{y}_N$ satisfies the problem's constraints. Sudoku: row / column / box violation penalty. Lean: the kernel's accept / reject verdict on the decoded proof, paired with a learned verifier head so the gradient flows back through $\hat{y}_N$ when the kernel is non-differentiable.</li>
 </ul>
 
-<h2>4. Deriving $\nabla_\theta \mathcal{L}$, one line at a time.</h2>
+<h2>4. Deriving $\nabla_\theta \mathcal{L}$.</h2>
 
-<p>Let $g(\hat{y}, \theta) := \nabla_{\hat{y}} E_\theta(x, \hat{y})$.</p>
+<p>Let $g(\hat{y}, \theta) := \nabla_{\hat{y}} E_\theta(x, \hat{y})$. Then (1) is:</p>
 
 $$
 \hat{y}_{k+1} \;=\; \hat{y}_k \;-\; \alpha\, g(\hat{y}_k, \theta) \tag{3}
 $$
-<p>Restate (1) using $g$.</p>
+
+<p>Total derivative of (2):</p>
 
 $$
 \nabla_\theta \mathcal{L} \;=\; \left(\frac{\partial J}{\partial \hat{y}_N}\right)^{\!\top}\,\frac{d \hat{y}_N}{d\theta} \tag{4}
 $$
-<p>Total derivative of (2). Only $\hat{y}_N$ depends on $\theta$.</p>
+
+<p>Differentiate (3) in $\theta$:</p>
 
 $$
 \frac{d \hat{y}_{k+1}}{d\theta} \;=\; \frac{d \hat{y}_k}{d\theta} \;-\; \alpha\!\left[\,\frac{\partial g}{\partial \hat{y}}\bigg|_{\hat{y}_k,\theta}\!\frac{d \hat{y}_k}{d\theta} \;+\; \frac{\partial g}{\partial \theta}\bigg|_{\hat{y}_k,\theta}\,\right] \tag{5}
 $$
-<p>Differentiate (3) w.r.t. $\theta$. $g$ depends on $\theta$ twice — through its second argument (explicit) and through $\hat{y}_k$ (implicit). Multivariate chain rule.</p>
+
+<p>Name the two partials of $g$ — recall $g = \nabla_{\hat{y}} E_\theta$, so:</p>
 
 $$
-H_k \,:=\, \nabla^2_{\hat{y}} E_\theta(x, \hat{y}_k) \;\in\; \mathbb{R}^{d \times d}, \qquad M_k \,:=\, \nabla_\theta \nabla_{\hat{y}} E_\theta(x, \hat{y}_k) \;\in\; \mathbb{R}^{d \times |\theta|} \tag{6}
+H_k \,:=\, \nabla^2_{\hat{y}} E_\theta(x, \hat{y}_k) \,=\, \frac{\partial g}{\partial \hat{y}}\bigg|_{\hat{y}_k,\theta}, \qquad M_k \,:=\, \nabla_\theta \nabla_{\hat{y}} E_\theta(x, \hat{y}_k) \,=\, \frac{\partial g}{\partial \theta}\bigg|_{\hat{y}_k,\theta} \tag{6}
 $$
-<p>Names. $H_k$ is the $\hat{y}$-Hessian of the energy at iterate $k$ — symmetric. $M_k$ is the mixed second derivative.</p>
 
 $$
 \frac{d \hat{y}_{k+1}}{d\theta} \;=\; (I - \alpha H_k)\,\frac{d \hat{y}_k}{d\theta} \;-\; \alpha\, M_k \tag{7}
 $$
-<p>Substitute (6) into (5).</p>
 
-<p>Unrolling (7) forward builds a $d \times |\theta|$ Jacobian — for any non-toy $|\theta|$, not stored. Solve backward.</p>
+<p>Define:</p>
 
 $$
-\lambda_k \,:=\, \left(\frac{d\mathcal{L}}{d \hat{y}_k}\right)^{\!\top} \in\; \mathbb{R}^d \tag{8}
+\lambda_k \,:=\, \left(\frac{d\mathcal{L}}{d \hat{y}_k}\right)^{\!\top} \tag{8}
 $$
-<p>Definition: sensitivity of the loss to the $k$-th iterate.</p>
+
+<p>At $k = N$, $\mathcal{L} = J(\hat{y}_N, y)$, so:</p>
 
 $$
 \lambda_N \;=\; \left(\frac{\partial J}{\partial \hat{y}_N}\right)^{\!\top} \tag{9}
 $$
-<p>Endpoint. For CE with softmax readout, $\lambda_N = \mathrm{softmax}(\hat{y}_N) - \mathbf{e}_y$. For MSE, $\lambda_N = 2(\hat{y}_N - y)$. The form of $J$ enters here and nowhere else.</p>
+
+<p>From (3) with $\theta$ fixed:</p>
 
 $$
-\frac{\partial \hat{y}_{k+1}}{\partial \hat{y}_k}\bigg|_{\theta \text{ fixed}} \;=\; I - \alpha H_k \tag{10}
+\frac{\partial \hat{y}_{k+1}}{\partial \hat{y}_k}\bigg|_{\theta} \;=\; I - \alpha H_k \tag{10}
 $$
-<p>Read from (3): hold $\theta$, differentiate in $\hat{y}_k$.</p>
+
+<p>$\mathcal{L}$ depends on $\hat{y}_k$ only through $\hat{y}_{k+1}$. Chain rule:</p>
+
+$$
+\frac{d\mathcal{L}}{d\hat{y}_k} \;=\; \frac{d\mathcal{L}}{d\hat{y}_{k+1}}\cdot\frac{\partial\hat{y}_{k+1}}{\partial\hat{y}_k} \;=\; \lambda_{k+1}^\top\,(I - \alpha H_k)
+$$
+
+<p>Transpose ($H_k$ symmetric):</p>
 
 $$
 \lambda_k \;=\; \lambda_{k+1} \;-\; \alpha\, H_k\, \lambda_{k+1} \tag{11}
 $$
-<p>Chain rule on (8) using (10); transpose; $H_k$ symmetric.</p>
+
+<p>Now compute $\nabla_\theta \mathcal{L}$. Start from (4), use (9):</p>
+
+$$
+\nabla_\theta \mathcal{L} \;=\; \lambda_N^\top\,\frac{d\hat{y}_N}{d\theta}
+$$
+
+<p>Substitute (7) at $k = N - 1$:</p>
+
+$$
+\nabla_\theta \mathcal{L} \;=\; \lambda_N^\top \!\left[(I - \alpha H_{N-1})\,\frac{d\hat{y}_{N-1}}{d\theta} \;-\; \alpha\,M_{N-1}\right]
+$$
+
+<p>Distribute:</p>
+
+$$
+\nabla_\theta \mathcal{L} \;=\; \lambda_N^\top (I - \alpha H_{N-1})\,\frac{d\hat{y}_{N-1}}{d\theta} \;-\; \alpha\,\lambda_N^\top M_{N-1}
+$$
+
+<p>By (11), $\lambda_N^\top(I - \alpha H_{N-1}) = \lambda_{N-1}^\top$:</p>
+
+$$
+\nabla_\theta \mathcal{L} \;=\; \lambda_{N-1}^\top\,\frac{d\hat{y}_{N-1}}{d\theta} \;-\; \alpha\,\lambda_N^\top M_{N-1}
+$$
+
+<p>Substitute (7) at $k = N - 2$:</p>
+
+$$
+\nabla_\theta \mathcal{L} \;=\; \lambda_{N-1}^\top\!\left[(I - \alpha H_{N-2})\,\frac{d\hat{y}_{N-2}}{d\theta} - \alpha\,M_{N-2}\right] \;-\; \alpha\,\lambda_N^\top M_{N-1}
+$$
+
+<p>Distribute and apply (11) again ($\lambda_{N-1}^\top(I - \alpha H_{N-2}) = \lambda_{N-2}^\top$):</p>
+
+$$
+\nabla_\theta \mathcal{L} \;=\; \lambda_{N-2}^\top\,\frac{d\hat{y}_{N-2}}{d\theta} \;-\; \alpha\,\lambda_{N-1}^\top M_{N-2} \;-\; \alpha\,\lambda_N^\top M_{N-1}
+$$
+
+<p>Repeat $N$ times in total. After all $N$ substitutions:</p>
+
+$$
+\nabla_\theta \mathcal{L} \;=\; \lambda_0^\top\,\frac{d\hat{y}_0}{d\theta} \;-\; \alpha\sum_{k=0}^{N-1} \lambda_{k+1}^\top M_k
+$$
+
+<p>$\hat{y}_0 \sim \mathcal{N}(0,I)$ doesn't depend on $\theta$, so $d\hat{y}_0/d\theta = 0$:</p>
+
+$$
+\nabla_\theta \mathcal{L} \;=\; -\,\alpha\sum_{k=0}^{N-1} \lambda_{k+1}^\top M_k
+$$
+
+<p>Transpose (the result is a scalar, so $\lambda_{k+1}^\top M_k = (M_k^\top \lambda_{k+1})^\top$):</p>
 
 $$
 \boxed{\;\nabla_\theta \mathcal{L} \;=\; -\,\alpha \sum_{k=0}^{N-1} M_k^\top\, \lambda_{k+1}\;} \tag{12}
 $$
-<p>Each step (3) injects a direct $\theta$-dependence equal to $-\alpha\, g(\hat{y}_k, \theta)$, whose Jacobian in $\theta$ (with $\hat{y}_k$ held fixed) is $-\alpha M_k$. Sum over steps; contract each with $\lambda_{k+1}$.</p>
 
 <p>Two object types survive into the algorithm — both <strong>second-derivative-times-vector</strong>:</p>
 
