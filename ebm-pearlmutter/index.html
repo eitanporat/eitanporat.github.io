@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From Autoregressive Tokens to Energy Landscapes — and the Pearlmutter Trick</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$',  right: '$',  display: false},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError: false,
+          output: 'html'
+        });"></script>
+
+<style>
+  :root {
+    --bg: #fdfdfd;
+    --fg: #1a1a1a;
+    --muted: #555;
+    --rule: #e6e6e6;
+    --accent: #1057a6;
+    --code-bg: #f5f5f4;
+    --figure-bg: #fafafa;
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0 auto;
+    padding: 3.5rem 1.2rem 6rem;
+    max-width: 720px;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: Charter, "Source Serif Pro", Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    line-height: 1.65;
+  }
+  h1 {
+    font-size: 1.9rem;
+    line-height: 1.25;
+    margin: 0 0 0.4rem;
+    letter-spacing: -0.01em;
+  }
+  h2 {
+    font-size: 1.25rem;
+    margin: 2.6rem 0 0.6rem;
+    letter-spacing: -0.005em;
+  }
+  h3 {
+    font-size: 1.05rem;
+    margin: 1.8rem 0 0.4rem;
+    font-weight: 600;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 2.4rem;
+  }
+  p { margin: 0.8rem 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  code, pre {
+    font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  }
+  code {
+    background: var(--code-bg);
+    padding: 0.08em 0.32em;
+    border-radius: 3px;
+    font-size: 0.88em;
+  }
+  pre {
+    padding: 0;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    background: transparent;
+  }
+  pre code.hljs {
+    padding: 0.9rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; }
+
+  figure {
+    margin: 1.6rem 0;
+    padding: 1rem 1.1rem;
+    background: var(--figure-bg);
+    border-left: 3px solid var(--rule);
+    border-radius: 0 4px 4px 0;
+  }
+  figure .placeholder {
+    height: 180px;
+    background: repeating-linear-gradient(45deg, #f0f0f0, #f0f0f0 8px, #fafafa 8px, #fafafa 16px);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-style: italic;
+    font-size: 0.85rem;
+    margin-bottom: 0.7rem;
+  }
+  figcaption {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  figcaption strong { color: var(--fg); }
+
+  table {
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.92rem;
+    width: 100%;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.4rem 0.7rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  th {
+    border-bottom: 2px solid var(--fg);
+    font-weight: 600;
+  }
+
+  .katex { font-size: 1em; }
+  .katex-display { margin: 1.1rem 0; overflow-x: auto; overflow-y: hidden; }
+  /* Hide the MathML accessibility layer in case KaTeX's own CSS doesn't load.
+     Without this, browsers (esp. Chrome with limited MathML support) render
+     it visibly alongside the styled math, producing duplicate stacked glyphs. */
+  .katex-mathml {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden !important;
+  }
+  .eq-annot {
+    color: var(--muted);
+    font-size: 0.92rem;
+    font-style: italic;
+    margin-top: -0.4rem;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 2.5rem 0;
+  }
+
+  .refs {
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+  .refs li { margin: 0.3rem 0; }
+</style>
+</head>
+<body>
+
+<h1>From Autoregressive Tokens to Energy Landscapes</h1>
+<p class="meta">and the Pearlmutter trick that makes the math cheap</p>
+<p class="meta" style="border-left: 3px solid #d0d0d0; padding-left: 0.8rem; font-style: italic;">A speculative reconstruction of how Logical Intelligence's <a href="https://logicalintelligence.com/kona-ebms-energy-based-models">Kona</a> might be built — no paper has been published, so this is one architecture that fits the public claims.</p>
+
+<h2>1. LLMs commit at every step.</h2>
+
+<figure>
+  <svg id="fig1" viewBox="0 0 720 200" width="100%" style="display:block; max-width:100%; overflow:visible"></svg>
+  <figcaption>
+    <strong>Figure 1.</strong> Autoregressive decoding. Context tokens on the left (gray, locked). A head over the next-token slot. Above the head, a probability vector drawn from $\mathrm{softmax}(\text{logits})$. The highest-probability candidate is sampled (gold), the token commits into the strip, the head moves right, and the candidate vector regenerates from the new context. Once committed, the token is gray — there is no path back.
+  </figcaption>
+</figure>
+
+<p>An autoregressive language model factors $p(y \mid x) = \prod_t p(y_t \mid x, y_{&lt;t})$. At each step the head reads the context, produces logits, samples a token, appends it, and continues.</p>
+
+<p>This is fast and it works — but notice what it forbids. Once $y_3 = $ <code>"compute"</code> is sampled, no later activation can rewrite it. If at step 17 the model realizes the right verb at step 3 was <code>"notice"</code>, there is no mechanism to revise. <strong>The pen never lifts.</strong> That structural irreversibility is why chain-of-thought helps so much — it gives the model more left-to-right room to recover from early commitments, because it cannot retract them.</p>
+
+<h2>2. The energy-based alternative.</h2>
+
+<figure>
+  <svg id="fig2" viewBox="0 0 720 290" width="100%" style="display:block; max-width:100%; overflow:visible"></svg>
+  <figcaption>
+    <strong>Figure 2.</strong> Energy-based refinement of the entire answer at once. Every cell of $\hat{y}$ starts as continuous noise (orange) and updates simultaneously via gradient descent on $E_\theta(x, \hat{y})$. Cells flicker between candidate tokens while the energy is high; each one locks in (gray) at its own pace as the energy curve below descends. There is no head and no autoregressive outer loop — every position is editable until convergence. This is the Sudoku / IRED setup, drawn over a reasoning-trace alphabet for visual continuity with Figure 1.
+  </figcaption>
+</figure>
+
+<p>Replace the single forward pass with a learned scalar <strong>verifier energy</strong> $E_\theta(x, \hat{y})$ whose minima over $\hat{y}$ are good answers to the problem $x$. Here $\hat{y}$ can be a single token, an entire token sequence, an image latent, a grid of values — anything continuous and structured. Generation becomes minimization of the energy in $\hat{y}$-space:</p>
+
+$$
+\hat{y}_{k+1} \;=\; \hat{y}_k \;-\; \alpha \,\nabla_{\hat{y}} E_\theta(x, \hat{y}_k), \qquad \hat{y}_0 \sim \mathcal{N}(0, I) \tag{1}
+$$
+
+<p>Add Gaussian noise to (1) and you have <a href="https://en.wikipedia.org/wiki/Stochastic_gradient_Langevin_dynamics">Langevin dynamics</a>, the sampling version of the same update. For a sequence answer, $\hat{y} \in \mathbb{R}^{T \times d}$ and every position updates simultaneously each step — the picture in Figure 2.</p>
+
+<p><em>Note: some EBM approaches train $E_\theta$ contrastively — score matching, denoising score matching, noise-contrastive estimation — without ever backpropping through the inference loop. This post covers the unrolled-inference route, which is what makes the Pearlmutter machinery in §5 necessary in the first place.</em></p>
+
+<h2>3. Training the verifier.</h2>
+
+<p>Sample $(x, y)$ from data, run (1) for $N$ steps to produce $\hat{y}_N$, apply a loss $J$ between $\hat{y}_N$ and the target $y$, backprop through every step:</p>
+
+$$
+\mathcal{L}(\theta) \;=\; J\!\left(\hat{y}_N(\theta; x),\, y\right) \tag{2}
+$$
+
+<p>$J$ is the only place the target's type enters:</p>
+
+<ul>
+  <li>Continuous targets (matrix completion, image latents): MSE.</li>
+  <li>Discrete tokens: categorical cross-entropy.</li>
+  <li>VAE features: Smooth-L1.</li>
+  <li><strong>A verifier.</strong> A function scoring whether $\hat{y}_N$ satisfies the problem's constraints. Sudoku: row / column / box violation penalty. Lean: the kernel's accept / reject verdict on the decoded proof, paired with a learned verifier head so the gradient flows back through $\hat{y}_N$ when the kernel is non-differentiable.</li>
+</ul>
+
+<h2>4. Deriving $\nabla_\theta \mathcal{L}$, one line at a time.</h2>
+
+<p>Let $g(\hat{y}, \theta) := \nabla_{\hat{y}} E_\theta(x, \hat{y})$.</p>
+
+$$
+\hat{y}_{k+1} \;=\; \hat{y}_k \;-\; \alpha\, g(\hat{y}_k, \theta) \tag{3}
+$$
+<p>Restate (1) using $g$.</p>
+
+$$
+\nabla_\theta \mathcal{L} \;=\; \left(\frac{\partial J}{\partial \hat{y}_N}\right)^{\!\top}\,\frac{d \hat{y}_N}{d\theta} \tag{4}
+$$
+<p>Total derivative of (2). Only $\hat{y}_N$ depends on $\theta$.</p>
+
+$$
+\frac{d \hat{y}_{k+1}}{d\theta} \;=\; \frac{d \hat{y}_k}{d\theta} \;-\; \alpha\!\left[\,\frac{\partial g}{\partial \hat{y}}\bigg|_{\hat{y}_k,\theta}\!\frac{d \hat{y}_k}{d\theta} \;+\; \frac{\partial g}{\partial \theta}\bigg|_{\hat{y}_k,\theta}\,\right] \tag{5}
+$$
+<p>Differentiate (3) w.r.t. $\theta$. $g$ depends on $\theta$ twice — through its second argument (explicit) and through $\hat{y}_k$ (implicit). Multivariate chain rule.</p>
+
+$$
+H_k \,:=\, \nabla^2_{\hat{y}} E_\theta(x, \hat{y}_k) \;\in\; \mathbb{R}^{d \times d}, \qquad M_k \,:=\, \nabla_\theta \nabla_{\hat{y}} E_\theta(x, \hat{y}_k) \;\in\; \mathbb{R}^{d \times |\theta|} \tag{6}
+$$
+<p>Names. $H_k$ is the $\hat{y}$-Hessian of the energy at iterate $k$ — symmetric. $M_k$ is the mixed second derivative.</p>
+
+$$
+\frac{d \hat{y}_{k+1}}{d\theta} \;=\; (I - \alpha H_k)\,\frac{d \hat{y}_k}{d\theta} \;-\; \alpha\, M_k \tag{7}
+$$
+<p>Substitute (6) into (5).</p>
+
+<p>Unrolling (7) forward builds a $d \times |\theta|$ Jacobian — for any non-toy $|\theta|$, not stored. Solve backward.</p>
+
+$$
+\lambda_k \,:=\, \left(\frac{d\mathcal{L}}{d \hat{y}_k}\right)^{\!\top} \in\; \mathbb{R}^d \tag{8}
+$$
+<p>Definition: sensitivity of the loss to the $k$-th iterate.</p>
+
+$$
+\lambda_N \;=\; \left(\frac{\partial J}{\partial \hat{y}_N}\right)^{\!\top} \tag{9}
+$$
+<p>Endpoint. For CE with softmax readout, $\lambda_N = \mathrm{softmax}(\hat{y}_N) - \mathbf{e}_y$. For MSE, $\lambda_N = 2(\hat{y}_N - y)$. The form of $J$ enters here and nowhere else.</p>
+
+$$
+\frac{\partial \hat{y}_{k+1}}{\partial \hat{y}_k}\bigg|_{\theta \text{ fixed}} \;=\; I - \alpha H_k \tag{10}
+$$
+<p>Read from (3): hold $\theta$, differentiate in $\hat{y}_k$.</p>
+
+$$
+\lambda_k \;=\; \lambda_{k+1} \;-\; \alpha\, H_k\, \lambda_{k+1} \tag{11}
+$$
+<p>Chain rule on (8) using (10); transpose; $H_k$ symmetric.</p>
+
+$$
+\boxed{\;\nabla_\theta \mathcal{L} \;=\; -\,\alpha \sum_{k=0}^{N-1} M_k^\top\, \lambda_{k+1}\;} \tag{12}
+$$
+<p>Each step (3) injects a direct $\theta$-dependence equal to $-\alpha\, g(\hat{y}_k, \theta)$, whose Jacobian in $\theta$ (with $\hat{y}_k$ held fixed) is $-\alpha M_k$. Sum over steps; contract each with $\lambda_{k+1}$.</p>
+
+<p>Two object types survive into the algorithm — both <strong>second-derivative-times-vector</strong>:</p>
+
+$$
+H_k\, \lambda_{k+1} \;\;\text{(Hessian-vector product)} \qquad\qquad M_k^\top\, \lambda_{k+1} \;\;\text{(mixed Hessian-vector product)} \tag{13}
+$$
+
+<p>$H_k \in \mathbb{R}^{d \times d}$ with $d \sim 10^4$; $M_k \in \mathbb{R}^{d \times |\theta|}$ with $|\theta| \sim 10^9$. Neither matrix can be formed.</p>
+
+<h2>5. The Pearlmutter trick.</h2>
+
+<p>For any scalar $f(z)$ and any vector $v$ (treated as a constant):</p>
+
+$$
+\big[\nabla^2_z f(z)\big]\, v \;=\; \nabla_z\!\left[\,(\nabla_z f(z))^\top\, v\,\right] \tag{14}
+$$
+
+<p>The right-hand side reads: one backward pass to get $\nabla_z f$; contract with $v$ to get a scalar; one <em>more</em> backward pass on that scalar. Two backward passes — roughly $2\times$ a single gradient evaluation — independent of $\dim(z)$. The Hessian is never materialized. The construction is from <a href="https://www.bcl.hamilton.ie/~barak/papers/nc-hessian.pdf">Pearlmutter (1994), <em>Fast Exact Multiplication by the Hessian</em></a>.</p>
+
+<h3>Sanity check on a quadratic.</h3>
+
+<p>Take $L(\theta) = \tfrac{1}{2}\lVert A\theta - b \rVert^2$ with $A \in \mathbb{R}^{m \times n}$, so $H = A^\top A$.</p>
+
+<table>
+  <thead>
+    <tr><th>route</th><th>flops</th><th>memory</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>form $H = A^\top A$, then $Hv$</td><td>$\mathcal{O}(mn^2) + \mathcal{O}(n^2)$</td><td>$\mathcal{O}(n^2)$</td></tr>
+    <tr><td>right-to-left: $Hv = A^\top(Av)$</td><td>$\mathcal{O}(mn)$</td><td>$\mathcal{O}(m + n)$</td></tr>
+  </tbody>
+</table>
+
+<p>For $m \approx n$: $\mathcal{O}(n^3)$ vs $\mathcal{O}(n^2)$. The general Pearlmutter result is the same kind of saving for any twice-differentiable $f$ — autodiff turns (14) into a one-liner:</p>
+
+<pre><code class="language-python"># JAX
+hvp = lambda f, z, v: jax.grad(lambda z: jnp.vdot(jax.grad(f)(z), v))(z)
+
+# PyTorch
+g   = torch.autograd.grad(f, z, create_graph=True)[0]
+hvp = torch.autograd.grad(g, z, grad_outputs=v)[0]
+</code></pre>
+
+<p>Apply (14) with $f = E_\theta(x, \hat{y}_k)$ and $z = \hat{y}$ to get $H_k v$ in (11). Apply the same construction with the outer gradient taken w.r.t. $\theta$,</p>
+
+$$
+M_k^\top v \;=\; \nabla_\theta\!\left[\,v^\top\, \nabla_{\hat{y}} E_\theta(x, \hat{y}_k)\,\right],
+$$
+
+<p>to get the mixed HVP in (12). Each is two backward passes. The full training step costs $\mathcal{O}(N)$ such pairs.</p>
+
+<h2>6. Recap.</h2>
+
+<ul>
+  <li><strong>§1.</strong> Autoregressive LLMs commit each token after one forward pass and cannot revise it.</li>
+  <li><strong>§2.</strong> Energy-based alternative: minimize a learned verifier energy $E_\theta(x, \hat{y})$ over a continuous $\hat{y}$ — single token, full sequence, image latent, plan tensor. Inference is gradient descent on $E_\theta$ in $\hat{y}$-space; Langevin if you want sampling.</li>
+  <li><strong>§3.</strong> Training: run (1) for $N$ steps, apply a loss $\mathcal{L}(\theta) = J(\hat{y}_N, y)$, backprop through every step. $J$ can be MSE / CE / Smooth-L1 — or a verifier (Sudoku constraint penalty, Lean kernel verdict).</li>
+  <li><strong>§4.</strong> Unrolling the chain rule through (1) gives $\nabla_\theta \mathcal{L} = -\alpha \sum_k M_k^\top \lambda_{k+1}$, with adjoints $\lambda_k = \lambda_{k+1} - \alpha H_k \lambda_{k+1}$. Two second-derivative-times-vector objects appear: $H_k \lambda_{k+1}$ (HVP) and $M_k^\top \lambda_{k+1}$ (mixed HVP).</li>
+  <li><strong>§5.</strong> Pearlmutter's identity $\nabla^2_z f \cdot v = \nabla_z[(\nabla_z f)^\top v]$ computes each HVP in two backward passes — independent of $\dim(z)$. Neither Hessian is ever formed.</li>
+</ul>
+
+<hr>
+
+<h3>References</h3>
+<ul class="refs">
+  <li>Pearlmutter. <em>Fast Exact Multiplication by the Hessian.</em> Neural Computation, 1994. <a href="https://www.bcl.hamilton.ie/~barak/papers/nc-hessian.pdf">PDF</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Stochastic_gradient_Langevin_dynamics">Stochastic Gradient Langevin Dynamics — Wikipedia.</a></li>
+  <li>Logical Intelligence — <a href="https://logicalintelligence.com/kona-ebms-energy-based-models">Kona EBMs</a>, <a href="https://logicalintelligence.com/blog/energy-based-model-sudoku-demo">Sudoku benchmark</a>, <a href="https://www.businesswire.com/news/home/20260120751310/en/Logical-Intelligence-Introduces-First-Energy-Based-Reasoning-AI-Model-Signals-Early-Steps-Toward-AGI-Adds-Yann-LeCun-and-Patrick-Hillmann-to-Leadership">company announcement</a>.</li>
+  <li><a href="https://en.wikipedia.org/wiki/Stochastic_gradient_Langevin_dynamics">Stochastic Gradient Langevin Dynamics — Wikipedia.</a></li>
+</ul>
+
+<script>
+// Code highlighting
+if (window.hljs) hljs.highlightAll();
+
+(function () {
+  const NS = "http://www.w3.org/2000/svg";
+  const $ = (tag, attrs = {}, parent = null, text = null) => {
+    const e = document.createElementNS(NS, tag);
+    for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+    if (text != null) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  };
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+  // Shared reasoning trace and per-position candidate distributions.
+  const TRACE = ["We", "solve", "the", "quadratic", "by", "completing", "the", "square,", "rewriting", "x²", "+", "6x"];
+  const CANDIDATES = [
+    null,
+    [{t:"solve",p:0.42},{t:"factor",p:0.22},{t:"compute",p:0.16},{t:"start",p:0.12},{t:"check",p:0.08}],
+    [{t:"the",p:0.55},{t:"this",p:0.20},{t:"x²",p:0.12},{t:"f(x)",p:0.08},{t:"a",p:0.05}],
+    [{t:"quadratic",p:0.40},{t:"equation",p:0.25},{t:"polynomial",p:0.17},{t:"system",p:0.10},{t:"problem",p:0.08}],
+    [{t:"by",p:0.42},{t:"using",p:0.28},{t:"via",p:0.15},{t:"with",p:0.10},{t:"through",p:0.05}],
+    [{t:"completing",p:0.46},{t:"factoring",p:0.28},{t:"applying",p:0.12},{t:"a",p:0.09},{t:"the",p:0.05}],
+    [{t:"the",p:0.82},{t:"a",p:0.10},{t:"this",p:0.04},{t:"each",p:0.02},{t:"some",p:0.02}],
+    [{t:"square,",p:0.60},{t:"square.",p:0.22},{t:"product",p:0.10},{t:"identity",p:0.05},{t:"cube",p:0.03}],
+    [{t:"rewriting",p:0.36},{t:"and",p:0.24},{t:"yielding",p:0.18},{t:"giving",p:0.12},{t:"adding",p:0.10}],
+    [{t:"x²",p:0.45},{t:"the",p:0.25},{t:"as",p:0.15},{t:"it",p:0.10},{t:"this",p:0.05}],
+    [{t:"+",p:0.68},{t:"−",p:0.18},{t:"=",p:0.08},{t:"·",p:0.03},{t:"²",p:0.03}],
+    [{t:"6x",p:0.40},{t:"4x",p:0.22},{t:"2x",p:0.16},{t:"5x",p:0.12},{t:"3x",p:0.10}],
+  ];
+
+  // Strip layout (shared).
+  const STRIP_LEN = TRACE.length;
+  const STRIP_X = 30;
+  const CELL_W = 54;
+  const CELL_H = 30;
+
+  function drawStrip(svg, headIdx, yPos) {
+    svg.querySelectorAll(".strip").forEach(e => e.remove());
+    const g = $("g", { class: "strip" }, svg);
+    for (let i = 0; i < STRIP_LEN; i++) {
+      const x = STRIP_X + i * CELL_W;
+      const isHead = i === headIdx;
+      const isContext = i < headIdx;
+      const tok = (isContext || isHead) ? TRACE[i] : "";
+      $("rect", {
+        x, y: yPos, width: CELL_W - 2, height: CELL_H,
+        fill: isHead ? "#fff7d6" : (isContext ? "#ececec" : "#f8f8f7"),
+        stroke: isHead ? "#1057a6" : "#d3d3d3",
+        "stroke-width": isHead ? 2 : 1,
+        rx: 3
+      }, g);
+      $("text", {
+        x: x + (CELL_W - 2) / 2, y: yPos + CELL_H / 2 + 4.5,
+        "text-anchor": "middle",
+        "font-family": "JetBrains Mono, Menlo, monospace",
+        "font-size": 12,
+        fill: isContext ? "#555" : "#1a1a1a"
+      }, g, tok);
+    }
+  }
+
+  // ===== Figure 1: autoregressive sampling =====
+  const svg1 = document.getElementById("fig1");
+  if (svg1) {
+    const STRIP_Y = 140;
+    async function loop1() {
+      while (true) {
+        for (let pos = 1; pos < TRACE.length; pos++) {
+          drawStrip(svg1, pos, STRIP_Y);
+          svg1.querySelectorAll(".cands").forEach(e => e.remove());
+
+          const cands = CANDIDATES[pos];
+          if (!cands) { await sleep(400); continue; }
+
+          const headX = STRIP_X + pos * CELL_W + (CELL_W - 2) / 2;
+          const g = $("g", { class: "cands" }, svg1);
+          const barX = headX - 35;
+          const maxBarW = 80;
+
+          cands.forEach((c, i) => {
+            const y = 22 + i * 20;
+            $("text", {
+              x: barX - 6, y: y + 4, "text-anchor": "end",
+              "font-family": "JetBrains Mono, Menlo, monospace",
+              "font-size": 11, fill: "#333"
+            }, g, c.t);
+            $("rect", {
+              x: barX, y: y - 7, width: maxBarW * c.p, height: 12,
+              fill: "#cfe2f3", stroke: "#5b8bb6", "stroke-width": 0.6, rx: 2,
+              class: `bar-${i}`
+            }, g);
+            $("text", {
+              x: barX + maxBarW * c.p + 5, y: y + 4,
+              "font-family": "JetBrains Mono, Menlo, monospace",
+              "font-size": 10, fill: "#777"
+            }, g, c.p.toFixed(2));
+          });
+
+          // Guide line from bars to head
+          $("line", {
+            x1: headX, y1: 120, x2: headX, y2: STRIP_Y - 2,
+            stroke: "#bbb", "stroke-width": 0.7, "stroke-dasharray": "2,3"
+          }, g);
+
+          await sleep(900);
+
+          // Sample: highlight top-prob bar (deterministic for clarity)
+          const bar = g.querySelector(".bar-0");
+          if (bar) {
+            bar.setAttribute("fill", "#ffd966");
+            bar.setAttribute("stroke", "#c89000");
+            bar.setAttribute("stroke-width", "1.5");
+          }
+          await sleep(600);
+        }
+        await sleep(500);
+      }
+    }
+    loop1();
+  }
+
+  // ===== Figure 2: whole-sequence refinement (Sudoku/IRED-style) =====
+  const svg2 = document.getElementById("fig2");
+  if (svg2) {
+    const STRIP_Y = 95;
+    const ENERGY = { x: 100, y: 175, w: 520, h: 90 };
+    const N_STEPS = 55;
+
+    function pickCandidate(i) {
+      const cands = CANDIDATES[i];
+      const pool = cands ? [TRACE[i], ...cands.map(c => c.t)] : [TRACE[i]];
+      return pool[Math.floor(Math.random() * pool.length)];
+    }
+
+    async function loop2() {
+      while (true) {
+        // Per-cell settle step, sampled fresh each run.
+        const settleAt = Array.from({ length: TRACE.length }, () =>
+          Math.floor(Math.random() * N_STEPS * 0.7) + Math.floor(N_STEPS * 0.2));
+        const shown = TRACE.map((_, i) => pickCandidate(i));
+
+        svg2.querySelectorAll(".refstrip, .energy, .axisLabel").forEach(e => e.remove());
+
+        // Strip label
+        const labG = $("g", { class: "axisLabel" }, svg2);
+        $("text", {
+          x: 30, y: 75,
+          "font-family": "Charter, Georgia, serif", "font-size": 11,
+          "font-style": "italic", fill: "#888"
+        }, labG, "ŷ — entire answer, refined jointly");
+
+        // Energy panel
+        const eG = $("g", { class: "energy" }, svg2);
+        $("rect", {
+          x: ENERGY.x, y: ENERGY.y, width: ENERGY.w, height: ENERGY.h,
+          fill: "#fafafa", stroke: "#d0d0d0", "stroke-width": 1, rx: 3
+        }, eG);
+        $("text", {
+          x: ENERGY.x + 6, y: ENERGY.y + 13,
+          "font-family": "Charter, Georgia, serif", "font-size": 10,
+          "font-style": "italic", fill: "#888"
+        }, eG, "E_θ(x, ŷ_k)");
+        $("text", {
+          x: ENERGY.x + ENERGY.w - 6, y: ENERGY.y + ENERGY.h - 4,
+          "text-anchor": "end",
+          "font-family": "Charter, Georgia, serif", "font-size": 10,
+          "font-style": "italic", fill: "#888"
+        }, eG, "k →");
+        const ePoly = $("polyline", {
+          fill: "none", stroke: "#1057a6", "stroke-width": 1.5, points: ""
+        }, eG);
+
+        const energies = [];
+        let eMax = 1;
+
+        for (let k = 0; k <= N_STEPS; k++) {
+          // Update displayed token per cell
+          for (let i = 0; i < TRACE.length; i++) {
+            if (k >= settleAt[i]) {
+              shown[i] = TRACE[i];
+            } else if (k % 2 === 0) {
+              shown[i] = pickCandidate(i);
+            }
+          }
+
+          // Render strip
+          svg2.querySelectorAll(".refstrip").forEach(e => e.remove());
+          const g = $("g", { class: "refstrip" }, svg2);
+          for (let i = 0; i < TRACE.length; i++) {
+            const x = STRIP_X + i * CELL_W;
+            const settled = k >= settleAt[i];
+            $("rect", {
+              x, y: STRIP_Y, width: CELL_W - 2, height: CELL_H,
+              fill: settled ? "#ececec" : "#fff2e8",
+              stroke: settled ? "#c8c8c8" : "#e8a578",
+              "stroke-width": 1, rx: 3
+            }, g);
+            $("text", {
+              x: x + (CELL_W - 2) / 2, y: STRIP_Y + CELL_H / 2 + 4.5,
+              "text-anchor": "middle",
+              "font-family": "JetBrains Mono, Menlo, monospace",
+              "font-size": 12,
+              fill: settled ? "#444" : "#cc6633",
+              opacity: settled ? 1 : 0.85
+            }, g, shown[i]);
+          }
+
+          // Energy: fraction of unsettled cells + decaying wobble
+          const numSettled = settleAt.filter(s => s <= k).length;
+          const base = (TRACE.length - numSettled) / TRACE.length;
+          const wobble = 0.13 * (1 - k / N_STEPS) * Math.sin(k * 0.85);
+          const en = Math.max(0, base + wobble);
+          energies.push(en);
+          if (k === 0) eMax = Math.max(en, 1);
+          eMax = Math.max(eMax, en);
+
+          let pts = "";
+          energies.forEach((e, j) => {
+            const ex = ENERGY.x + 8 + (j / N_STEPS) * (ENERGY.w - 16);
+            const ey = ENERGY.y + ENERGY.h - 10 - (e / eMax) * (ENERGY.h - 24);
+            pts += `${ex},${ey} `;
+          });
+          ePoly.setAttribute("points", pts);
+
+          await sleep(75);
+        }
+
+        await sleep(1600);
+      }
+    }
+    loop2();
+  }
+})();
+</script>
+</body>
+</html>
